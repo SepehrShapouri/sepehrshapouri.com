@@ -12,7 +12,7 @@ export default function FluidGradientTextDemo() {
         </span>
       </div>
 
-      <FluidGradientText text="shadcn" />
+      <FluidGradientText text="Sepehr" />
     </div>
   )
 }

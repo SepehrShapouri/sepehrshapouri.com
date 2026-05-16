@@ -1,24 +1,24 @@
 {
-  "name": "chanhdai.com",
+  "name": "sepehrshapouri.com",
   "version": "0.1.0",
   "description": "A pixel-perfect dev portfolio and shadcn registry.",
-  "homepage": "https://chanhdai.com",
+  "homepage": "https://sepehrshapouri.com",
   "license": "MIT",
   "author": {
-    "name": "Nguyen Chanh Dai",
-    "email": "dai@chanhdai.com",
-    "url": "https://github.com/ncdai"
+    "name": "Sepehr Shapouri",
+    "email": "sepi@sepehrshapouri.com",
+    "url": "https://github.com/sepehrshapouri"
   },
   "contributors": [
     {
-      "name": "Nguyen Chanh Dai",
-      "email": "dai@chanhdai.com",
-      "url": "https://github.com/ncdai"
+      "name": "Sepehr Shapouri",
+      "email": "sepi@sepehrshapouri.com",
+      "url": "https://github.com/sepehrshapouri"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ncdai/chanhdai.com.git"
+    "url": "git+https://github.com/sepehrshapouri/sepehrshapouri.com.git"
   },
   "scripts": {
     "dev": "next dev",

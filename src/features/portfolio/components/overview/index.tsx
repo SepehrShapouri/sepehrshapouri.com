@@ -3,6 +3,7 @@ import {
   MapPinIcon,
   MarsIcon,
   NonBinaryIcon,
+  UserIcon,
   VenusIcon,
 } from "lucide-react"
 
@@ -20,7 +21,6 @@ import {
   IntroItemLink,
 } from "./intro-item"
 import { JobItem } from "./job-item"
-import { PhoneItem } from "./phone-item"
 
 export function Overview() {
   return (
@@ -57,7 +57,12 @@ export function Overview() {
 
           <CurrentLocalTimeItem timeZone={USER.timeZone} />
 
-          <PhoneItem phoneNumber={USER.phoneNumber} />
+          <IntroItem>
+            <IntroItemIcon>
+              <UserIcon />
+            </IntroItemIcon>
+            <IntroItemContent>{USER.age} Y/O</IntroItemContent>
+          </IntroItem>
 
           <EmailItem email={USER.email} />
 

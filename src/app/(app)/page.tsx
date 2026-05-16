@@ -48,7 +48,7 @@ export default function HomePage() {
         <Separator />
 
         <Overview />
-        <SocialLinks />
+
         <Separator />
 
         <About />

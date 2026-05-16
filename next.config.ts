@@ -1,5 +1,9 @@
 import type { NextConfig } from "next"
 
+const assetsUrl = new URL(
+  process.env.NEXT_PUBLIC_ASSETS_URL || "https://assets.sepehrshapouri.com"
+)
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ["next-mdx-remote"],
@@ -7,6 +11,11 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
     remotePatterns: [
+      {
+        protocol: assetsUrl.protocol.replace(":", "") as "http" | "https",
+        hostname: assetsUrl.hostname,
+        port: assetsUrl.port,
+      },
       {
         protocol: "https",
         hostname: "assets.chanhdai.com",

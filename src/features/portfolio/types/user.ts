@@ -11,6 +11,7 @@ export type User = {
   /** e.g. "he/him", "she/her", "they/them" */
   pronouns: string
   bio: string
+  age?: number
   /** Short phrases rotated in UI (e.g., homepage flip effect) */
   flipSentences: string[]
   /** General location for display */
