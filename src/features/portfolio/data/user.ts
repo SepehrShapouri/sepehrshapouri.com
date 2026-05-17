@@ -14,19 +14,19 @@ export const USER: User = {
     "Fullstack developer",
     "Open Source Contributor",
   ],
-  address: "Fethiye, Oludeniz",
+  address: "Oludeniz, Fethiye",
   age: 21,
   phoneNumber: "Kzg0Nzc3ODg4MTQ4", // E.164 format, base64 encoded (https://t.io.vn/base64-string-converter)
   email: "c2VwZWhyc2hhcG91cmlAaWNsb3VkLmNvbQ==", // base64 encoded
   website: "https://sepehrshapouri.com",
   jobTitle: "Fullstack developer",
   jobs: [
-    // {
-    //   title: "Fullstack developer",
-    //   company: "shadcncraft",
-    //   website: "https://shadcncraft.com?atp=ncdai",
-    //   experienceId: "shadcncraft",
-    // },
+    {
+      title: "Fullstack developer",
+      company: "Sidejar",
+      website: "https://sidejar.studio",
+      experienceId: "sidejar",
+    },
     // {
     //   title: "Founder",
     //   company: "Quaric",

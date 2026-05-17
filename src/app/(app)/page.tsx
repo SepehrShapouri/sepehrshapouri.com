@@ -54,8 +54,8 @@ export default function HomePage() {
         <Blog />
         <Separator /> */}
 
-        {/* <Experiences />
-        <Separator /> */}
+        <Experiences />
+        <Separator />
         {/* 
         <Projects />
         <Separator /> */}
