@@ -378,7 +378,10 @@ export function CommandMenu({
             </CommandItem>
 
             <CommandItem asChild>
-              <a href="https://assets.chanhdai.com/chanhdai-brand.zip" download>
+              <a
+                href="https://assets.sepehrshapouri.com/chanhdai-brand.zip"
+                download
+              >
                 <Download />
                 Download Brand Assets
               </a>

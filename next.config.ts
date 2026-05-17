@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "assets.chanhdai.com",
+        hostname: "assets.sepehrshapouri.com",
         port: "",
       },
       {

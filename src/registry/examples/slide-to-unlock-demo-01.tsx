@@ -12,9 +12,12 @@ import {
 import { useSound } from "@/registry/hooks/sound/use-sound"
 
 export default function SlideToUnlockDemo1() {
-  const [play] = useSound("https://assets.chanhdai.com/sounds/ios/unlock.mp3", {
-    volume: 0.5,
-  })
+  const [play] = useSound(
+    "https://assets.sepehrshapouri.com/sounds/ios/unlock.mp3",
+    {
+      volume: 0.5,
+    }
+  )
 
   return (
     <SlideToUnlock

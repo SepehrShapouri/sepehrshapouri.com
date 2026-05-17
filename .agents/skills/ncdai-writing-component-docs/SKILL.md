@@ -21,7 +21,7 @@ Component docs follow this section order. Only include sections that are relevan
 ---
 title: Component Name
 description: One concise sentence about what the component does.
-image: https://assets.chanhdai.com/images/blog/{component-name}.webp
+image: https://assets.sepehrshapouri.com/images/blog/{component-name}.webp
 category: components
 createdAt: YYYY-MM-DD
 updatedAt: YYYY-MM-DD

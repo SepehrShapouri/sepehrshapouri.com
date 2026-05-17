@@ -10,7 +10,7 @@ export default function BrandAssetsMenuDemo() {
         logomarkSVG={LOGOMARK_SVG}
         logotypeSVG={LOGOTYPE_SVG}
         brandGuidelinesURL="https://chanhdai.com/blog/chanhdai-brand"
-        brandAssetsURL="https://assets.chanhdai.com/chanhdai-brand.zip"
+        brandAssetsURL="https://assets.sepehrshapouri.com/chanhdai-brand.zip"
       >
         <Link href="/" aria-label="Home">
           <ChanhDaiMark className="h-8 text-foreground" />
