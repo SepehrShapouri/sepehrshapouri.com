@@ -1,30 +1,17 @@
 import type { Metadata } from "next"
-import dynamic from "next/dynamic"
 import type { ProfilePage as PageSchema, WithContext } from "schema-dts"
 
 import { About } from "@/features/portfolio/components/about"
-import { Awards } from "@/features/portfolio/components/awards"
 import { Blog } from "@/features/portfolio/components/blog"
-import { Bookmarks } from "@/features/portfolio/components/bookmarks"
-import { Certifications } from "@/features/portfolio/components/certifications"
 import { Experiences } from "@/features/portfolio/components/experiences"
 import { GitHubContributions } from "@/features/portfolio/components/github-contributions"
 import { Overview } from "@/features/portfolio/components/overview"
 import { ProfileCover } from "@/features/portfolio/components/profile-cover"
 import { ProfileHeader } from "@/features/portfolio/components/profile-header"
 import { Projects } from "@/features/portfolio/components/projects"
-import { SocialLinks } from "@/features/portfolio/components/social-links"
-import { Sponsors } from "@/features/portfolio/components/sponsors"
 import { TechStack } from "@/features/portfolio/components/tech-stack"
-import { Testimonials } from "@/features/portfolio/components/testimonials"
 import { USER } from "@/features/portfolio/data/user"
 import { cn } from "@/lib/utils"
-
-const ComponentsShowcase = dynamic(() =>
-  import("@/features/portfolio/components/components-showcase").then(
-    (mod) => mod.ComponentsShowcase
-  )
-)
 
 export const metadata: Metadata = {
   alternates: {
@@ -54,7 +41,6 @@ export default function HomePage() {
         <About />
         <div className="flex h-2 w-full border-x border-line" />
 
-        <Testimonials />
         <div className="flex h-2 w-full border-x border-line" />
 
         <GitHubContributions />
@@ -63,34 +49,21 @@ export default function HomePage() {
         <TechStack />
       </div>
 
-      <div className="mx-auto xl:container">
-        <Separator />
-        <ComponentsShowcase />
-      </div>
-
       <div className="mx-auto md:max-w-3xl *:[[id]]:scroll-mt-22">
-        <Separator />
-
+        {/* <Separator />
         <Blog />
-        <Separator />
+        <Separator /> */}
 
-        <Sponsors />
-        <Separator />
-
-        <Experiences />
-        <Separator />
-
+        {/* <Experiences />
+        <Separator /> */}
+        {/* 
         <Projects />
-        <Separator />
+        <Separator /> */}
 
-        <Awards />
-        <Separator />
+        {/* <Certifications /> */}
+        {/* <Separator /> */}
 
-        <Certifications />
-        <Separator />
-
-        <Bookmarks />
-        <Separator />
+        {/* <Separator /> */}
       </div>
     </>
   )

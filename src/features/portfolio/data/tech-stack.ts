@@ -14,28 +14,29 @@ export const TECH_STACK: TechStack[] = [
     categories: ["Languages"],
   },
   {
-    key: "python",
-    title: "Python",
-    href: "https://www.python.org/",
-    categories: ["Languages"],
-  },
-  {
-    key: "php",
-    title: "PHP",
-    href: "https://www.php.net/",
-    categories: ["Languages"],
-  },
-  {
-    key: "java",
-    title: "Java",
-    href: "https://www.java.com/",
-    categories: ["Languages"],
+    key: "electron",
+    title: "Electron",
+    href: "https://www.electronjs.org/",
+    categories: ["Desktop"],
   },
   {
     key: "react",
     title: "React",
     href: "https://react.dev/",
     categories: ["Frontend"],
+  },
+  {
+    key: "react-native",
+    title: "React Native",
+    href: "https://reactnative.dev/",
+    categories: ["Frontend", "Mobile"],
+  },
+  {
+    key: "expo",
+    title: "Expo",
+    href: "https://expo.dev/",
+    categories: ["Frontend", "Mobile"],
+    theme: true,
   },
   {
     key: "nextjs2",
@@ -85,21 +86,9 @@ export const TECH_STACK: TechStack[] = [
     theme: true,
   },
   {
-    key: "mobx-state-tree",
-    title: "MobX-State-Tree",
-    href: "https://mobx-state-tree.js.org/",
-    categories: ["Frontend"],
-  },
-  {
     key: "redux",
     title: "Redux",
     href: "https://redux.js.org/",
-    categories: ["Frontend"],
-  },
-  {
-    key: "react-navigation",
-    title: "React Navigation",
-    href: "https://reactnavigation.org/",
     categories: ["Frontend"],
   },
   {
@@ -109,15 +98,41 @@ export const TECH_STACK: TechStack[] = [
     categories: ["Backend & Database"],
   },
   {
+    key: "nestjs",
+    title: "NestJS",
+    href: "https://nestjs.com/",
+    categories: ["Backend & Database"],
+  },
+  {
     key: "bun",
     title: "Bun",
     href: "https://bun.sh/",
     categories: ["Backend & Database"],
   },
   {
-    key: "laravel",
-    title: "Laravel",
-    href: "https://laravel.com/",
+    key: "supabase",
+    title: "Supabase",
+    href: "https://supabase.com/",
+    categories: ["Backend & Database"],
+  },
+  {
+    key: "better-auth",
+    title: "Better Auth",
+    href: "https://www.better-auth.com/",
+    categories: ["Backend & Database"],
+    theme: true,
+  },
+  {
+    key: "resend",
+    title: "Resend",
+    href: "https://resend.com/",
+    categories: ["Backend & Database"],
+    theme: true,
+  },
+  {
+    key: "firebase",
+    title: "Firebase",
+    href: "https://firebase.google.com/",
     categories: ["Backend & Database"],
   },
   {
@@ -130,12 +145,6 @@ export const TECH_STACK: TechStack[] = [
     key: "mysql",
     title: "MySQL",
     href: "https://www.mysql.com/",
-    categories: ["Backend & Database"],
-  },
-  {
-    key: "mongodb",
-    title: "MongoDB",
-    href: "https://www.mongodb.com/",
     categories: ["Backend & Database"],
   },
   {
@@ -180,12 +189,6 @@ export const TECH_STACK: TechStack[] = [
     key: "figma",
     title: "Figma",
     href: "https://www.figma.com/",
-    categories: ["Design"],
-  },
-  {
-    key: "ps",
-    title: "Photoshop",
-    href: "https://www.adobe.com/vn_en/products/photoshop.html",
     categories: ["Design"],
   },
 ]

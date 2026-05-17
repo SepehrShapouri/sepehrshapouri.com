@@ -17,7 +17,7 @@ export function AvatarLights({
   return (
     <div
       className={cn(
-        "relative size-30 rounded-sm min-[24rem]:size-32 sm:size-40",
+        "relative size-30 rounded-none min-[24rem]:size-32 sm:size-40",
         className
       )}
       {...props}
@@ -83,7 +83,10 @@ function AvatarImage({
 }: React.ComponentProps<"img">) {
   return (
     <img
-      className={cn("size-full rounded-sm object-cover select-none", className)}
+      className={cn(
+        "size-full rounded-none object-cover select-none",
+        className
+      )}
       src={src}
       alt={alt}
       {...props}

@@ -16,20 +16,8 @@ export const META_THEME_COLORS = {
 
 export const MAIN_NAV: NavItem[] = [
   {
-    title: "Components",
-    href: "/components",
-  },
-  {
-    title: "Blocks",
-    href: "/blocks",
-  },
-  {
     title: "Blog",
     href: "/blog",
-  },
-  {
-    title: "Sponsors",
-    href: "/sponsors",
   },
 ]
 
@@ -41,7 +29,7 @@ export const MOBILE_NAV: NavItem[] = [
   ...MAIN_NAV,
 ]
 
-export const X_HANDLE = "@iamncdai"
+export const X_HANDLE = "@sepehrshapouri"
 export const GITHUB_USERNAME = "sepehrshapouri"
 export const SOURCE_CODE_GITHUB_REPO = "sepehrshapouri/sepehrshapouri.com"
 export const SOURCE_CODE_GITHUB_URL =

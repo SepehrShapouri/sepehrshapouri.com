@@ -78,20 +78,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "https://assets.sepehrshapouri.com/images/favicon.ico",
+        url: "https://assets.sepehrshapouri.com/images/favicon-dark.ico",
         sizes: "32x32",
-      },
-      {
-        url: "https://assets.sepehrshapouri.com/images/favicon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "https://assets.sepehrshapouri.com/images/favicon-dark.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: dark)",
       },
     ],
     apple: {

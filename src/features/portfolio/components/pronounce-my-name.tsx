@@ -1,13 +1,17 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
 
 import type { VolumeIconHandle } from "@/components/animated-icons/volume"
 import { VolumeIcon } from "@/components/animated-icons/volume"
 import { trackEvent } from "@/lib/events"
 import { cn } from "@/lib/utils"
-import { useSound } from "@/registry/hooks/sound/use-sound"
+
+function playFromStart(audio: HTMLAudioElement) {
+  audio.currentTime = 0
+  return audio.play()
+}
 
 export function PronounceMyName({
   className,
@@ -16,16 +20,35 @@ export function PronounceMyName({
   className?: string
   namePronunciationUrl: string
 }) {
-  const [play] = useSound(namePronunciationUrl)
-
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const volumeIconRef = useRef<VolumeIconHandle>(null)
+
+  useEffect(() => {
+    const audio = new Audio(namePronunciationUrl)
+    audio.preload = "auto"
+    audioRef.current = audio
+
+    return () => {
+      audio.pause()
+      audioRef.current = null
+    }
+  }, [namePronunciationUrl])
 
   const handlePlayClick = () => {
     volumeIconRef.current?.startAnimation()
-    play()
-    trackEvent({
-      name: "play_name_pronunciation",
-    })
+
+    const audio = audioRef.current ?? new Audio(namePronunciationUrl)
+    audioRef.current = audio
+
+    void playFromStart(audio)
+      .then(() => {
+        trackEvent({
+          name: "play_name_pronunciation",
+        })
+      })
+      .catch(() => {
+        volumeIconRef.current?.stopAnimation()
+      })
   }
 
   useHotkeys("p", handlePlayClick)

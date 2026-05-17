@@ -47,8 +47,6 @@ export function SiteHeader() {
         <NavDesktop items={MAIN_NAV} />
 
         <div className="flex items-center *:first:mr-2 max-sm:*:data-[slot=command-menu-trigger]:hidden">
-          <CommandMenu docs={docPreviews} blocks={blocks} enabledHotkeys />
-          <NavItemGitHub />
           <Separator
             orientation="vertical"
             className="mx-2 data-vertical:h-4 data-vertical:self-center"
@@ -56,8 +54,8 @@ export function SiteHeader() {
           <ThemeToggle />
         </div>
 
-        {/* <div className="absolute top-[-3.5px] left-[-4.5px] z-2 flex size-2 border border-line bg-background" /> */}
-        {/* <div className="absolute top-[-3.5px] right-[-4.5px] z-2 flex size-2 border border-line bg-background" /> */}
+        <div className="absolute top-[-3.5px] left-[-4.5px] z-2 flex size-2 border border-line bg-background" />
+        <div className="absolute top-[-3.5px] right-[-4.5px] z-2 flex size-2 border border-line bg-background" />
       </div>
     </header>
   )

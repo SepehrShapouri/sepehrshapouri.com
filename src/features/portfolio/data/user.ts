@@ -35,9 +35,15 @@ export const USER: User = {
     // },
   ],
   about: `
-- Fullstack developer with 5+ years of experience, known for pixel-perfect execution and strong attention to small details.
-- Passionate about exploring new technologies and turning ideas into reality through polished, thoughtfully crafted personal projects.
-- Creator of [chanhdai.com](https://github.com/ncdai/chanhdai.com) (1.8k stars), [React Wheel Picker](https://react-wheel-picker.chanhdai.com) (24k+ weekly downloads, ▲Vercel OSS Program), and [ZaDark](https://zadark.com) (80k+ downloads, 30k+ users) — peak metrics.
+- Full-stack developer with 5+ years of experience focused on innovation and building products people genuinely love using.
+  To me, user experience matters most. As Steve Jobs once said: “Start with the customer experience and work backwards to the technology.”
+
+- I specialize in crafting modern web, desktop, and AI-driven experiences with a strong focus on usability, performance, and design.
+  I believe great products come from understanding people first, then engineering the technology around that experience.
+
+- Whether it’s scalable systems, polished interfaces, or AI-powered workflows, I love building products that feel intuitive, seamless, and almost magical to use.
+
+- I’ve worked with startups and businesses to ship production-ready software solutions that improve customer experience, move fast, and drive real business impact.
 `,
   avatar: asset("/images/avatar.png"),
   avatarVariants: {
