@@ -27,12 +27,6 @@ export const USER: User = {
       website: "https://sidejar.studio",
       experienceId: "sidejar",
     },
-    // {
-    //   title: "Founder",
-    //   company: "Quaric",
-    //   website: "https://quaric.com",
-    //   experienceId: "quaric",
-    // },
   ],
   about: `
 - Full-stack developer with 5+ years of experience focused on innovation and building products people genuinely love using.
