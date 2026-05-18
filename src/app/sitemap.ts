@@ -2,14 +2,14 @@ import type { MetadataRoute } from "next"
 
 import { registryCategories } from "@/config/registry"
 import { SITE_INFO } from "@/config/site"
-import { getAllDocs, getDocsByCategory } from "@/features/doc/data/documents"
+import { getBlogDocs, getDocsByCategory } from "@/features/doc/data/documents"
 import { getAllBlockStaticParams } from "@/lib/blocks"
 
 export const revalidate = false
 export const dynamic = "force-static"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = getAllDocs().map((post) => ({
+  const posts = getBlogDocs().map((post) => ({
     url: `${SITE_INFO.url}/blog/${post.slug}`,
     lastModified: new Date(post.metadata.updatedAt).toISOString(),
   }))

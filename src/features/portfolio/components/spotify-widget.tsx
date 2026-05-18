@@ -1,11 +1,18 @@
 "use client"
 
-import { ExternalLinkIcon, Music2Icon } from "lucide-react"
+import { Music2Icon } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
 const POLL_INTERVAL_MS = 30_000
+const WIDGET_CLASSNAME =
+  "col-span-full flex min-w-0 items-center gap-3 border border-t-0 border-line p-3"
+const ARTWORK_CLASSNAME =
+  "flex size-12 shrink-0 items-center justify-center border border-line bg-background"
+const STATUS_CLASSNAME =
+  "mb-1 flex min-w-0 items-center gap-1.5 overflow-hidden font-mono text-[0.6875rem] leading-none whitespace-nowrap text-muted-foreground uppercase"
+const TITLE_CLASSNAME = "truncate font-mono text-sm leading-5 text-foreground"
 
 type SpotifyWidgetTrack = {
   album: string
@@ -79,15 +86,12 @@ export function SpotifyWidget() {
 
   const track = data.track
   const label = track.status === "playing" ? "Now playing" : "Last played"
-  const detail =
-    track.status === "last-played" && track.playedAt
-      ? formatRelativeTime(track.playedAt)
-      : null
 
   return (
     <a
       className={cn(
-        "group col-span-full flex min-w-0 items-center gap-3 border border-t-0 p-3 transition-colors hover:bg-muted/60",
+        "group transition-colors hover:bg-muted/60",
+        WIDGET_CLASSNAME,
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
       )}
       href={track.spotifyUrl}
@@ -98,7 +102,7 @@ export function SpotifyWidget() {
       <SpotifyArtwork track={track} />
 
       <div className="min-w-0 flex-1">
-        <p className="mb-1 flex items-center gap-1.5 font-mono text-[0.6875rem] leading-none text-muted-foreground uppercase">
+        <p className={STATUS_CLASSNAME}>
           <span
             className={cn(
               "size-1.5 shrink-0 rounded-full",
@@ -112,17 +116,12 @@ export function SpotifyWidget() {
           <span className="text-muted-foreground/60">on Spotify</span>
         </p>
         <p
-          className="truncate font-mono text-sm leading-5 text-foreground"
+          className={TITLE_CLASSNAME}
           title={`${track.title} by ${track.artists}`}
         >
           {track.title}
           <span className="text-muted-foreground"> by {track.artists}</span>
         </p>
-        {detail ? (
-          <p className="truncate text-xs leading-5 text-muted-foreground">
-            {detail}
-          </p>
-        ) : null}
       </div>
     </a>
   )
@@ -130,7 +129,7 @@ export function SpotifyWidget() {
 
 function SpotifyArtwork({ track }: { track: SpotifyWidgetTrack }) {
   return (
-    <span className="flex size-12 shrink-0 items-center justify-center border border-line bg-background">
+    <span className={ARTWORK_CLASSNAME}>
       {track.albumImageUrl ? (
         <img
           src={track.albumImageUrl}
@@ -154,50 +153,20 @@ function SpotifyWidgetShell({
   muted?: boolean
 }) {
   return (
-    <div
-      className={cn(
-        "col-span-full flex h-[74px] min-w-0 items-center gap-3 border border-line bg-muted/20 p-3",
-        muted && "opacity-70"
-      )}
-    >
-      <span className="flex size-12 shrink-0 items-center justify-center border border-line bg-background">
+    <div className={cn("bg-muted/20", WIDGET_CLASSNAME, muted && "opacity-70")}>
+      <span className={ARTWORK_CLASSNAME}>
         <Music2Icon className="size-5 text-muted-foreground" aria-hidden />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="mb-1 font-mono text-[0.6875rem] leading-none text-muted-foreground uppercase">
+        <p className={STATUS_CLASSNAME}>
+          <span
+            className="size-1.5 shrink-0 rounded-full bg-muted-foreground/50"
+            aria-hidden
+          />
           Spotify
         </p>
-        <p className="truncate font-mono text-sm leading-5 text-muted-foreground">
-          {label}
-        </p>
+        <p className={cn(TITLE_CLASSNAME, "text-muted-foreground")}>{label}</p>
       </div>
     </div>
   )
-}
-
-function formatRelativeTime(value: string) {
-  const timestamp = new Date(value).getTime()
-
-  if (!Number.isFinite(timestamp)) {
-    return "recently"
-  }
-
-  const seconds = Math.round((timestamp - Date.now()) / 1000)
-  const units: [Intl.RelativeTimeFormatUnit, number][] = [
-    ["year", 31536000],
-    ["month", 2592000],
-    ["week", 604800],
-    ["day", 86400],
-    ["hour", 3600],
-    ["minute", 60],
-  ]
-  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
-
-  for (const [unit, unitSeconds] of units) {
-    if (Math.abs(seconds) >= unitSeconds) {
-      return formatter.format(Math.round(seconds / unitSeconds), unit)
-    }
-  }
-
-  return formatter.format(seconds, "second")
 }

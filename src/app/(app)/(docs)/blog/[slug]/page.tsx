@@ -30,8 +30,8 @@ import {
 import { DocPageRoot } from "@/features/doc/components/doc-page-root"
 import {
   findNeighbour,
-  getAllDocs,
-  getDocBySlug,
+  getBlogDocBySlug,
+  getBlogDocs,
 } from "@/features/doc/data/documents"
 import type { Doc } from "@/features/doc/types/document"
 import { USER } from "@/features/portfolio/data/user"
@@ -42,7 +42,7 @@ export const dynamic = "force-static"
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const docs = getAllDocs()
+  const docs = getBlogDocs()
   return docs.map((doc) => ({ slug: doc.slug }))
 }
 
@@ -50,7 +50,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const slug = (await params).slug
-  const doc = getDocBySlug(slug)
+  const doc = getBlogDocBySlug(slug)
 
   if (!doc) {
     return notFound()
@@ -113,7 +113,7 @@ function getPageJsonLd(doc: Doc): WithContext<PageSchema> {
 
 export default async function Page({ params }: PageProps<"/blog/[slug]">) {
   const slug = (await params).slug
-  const doc = getDocBySlug(slug)
+  const doc = getBlogDocBySlug(slug)
 
   if (!doc) {
     notFound()
@@ -121,7 +121,7 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
 
   const toc = getTableOfContents(doc.content)
 
-  const allDocs = getAllDocs()
+  const allDocs = getBlogDocs()
   const { previous, next } = findNeighbour(allDocs, slug)
 
   return (

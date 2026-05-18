@@ -12,7 +12,6 @@ import type { User } from "@/features/portfolio/types/user"
 import { urlToName } from "@/utils/url"
 
 import { Panel, PanelContent } from "../panel"
-import { SpotifyWidget } from "../spotify-widget"
 import { CurrentLocalTimeItem } from "./current-local-time-item"
 import { EmailItem } from "./email-item"
 import {

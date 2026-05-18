@@ -1,11 +1,11 @@
 import { SITE_INFO } from "@/config/site"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogDocs } from "@/features/doc/data/documents"
 
 export const revalidate = false
 export const dynamic = "force-static"
 
 export function GET() {
-  const itemsXml = getAllDocs()
+  const itemsXml = getBlogDocs()
     .map(
       (doc) =>
         `<item>
