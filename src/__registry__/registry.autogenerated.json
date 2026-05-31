@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "ncdai",
-  "homepage": "https://chanhdai.com/components",
+  "homepage": "https://sepehrshapouri.com/components",
   "items": [
     {
       "name": "utils",
@@ -18,7 +18,7 @@
         }
       ],
       "type": "registry:lib",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "haptic",
@@ -32,7 +32,7 @@
         }
       ],
       "type": "registry:lib",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "use-sound",
@@ -56,7 +56,7 @@
         }
       ],
       "type": "registry:hook",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "use-controllable-state",
@@ -69,7 +69,7 @@
         }
       ],
       "type": "registry:hook",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "theme-switcher",
@@ -86,9 +86,9 @@
           "target": "@components/theme-switcher.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/theme-switcher",
+      "docs": "https://sepehrshapouri.com/components/theme-switcher",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "text-flip",
@@ -104,9 +104,9 @@
           "target": "@components/text-flip.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/text-flip",
+      "docs": "https://sepehrshapouri.com/components/text-flip",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "apple-hello-effect",
@@ -122,9 +122,9 @@
           "target": "@components/apple-hello-effect-english.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/apple-hello-effect",
+      "docs": "https://sepehrshapouri.com/components/apple-hello-effect",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "apple-hello-effect-hindi",
@@ -140,9 +140,9 @@
           "target": "@components/apple-hello-effect-hindi.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/apple-hello-effect",
+      "docs": "https://sepehrshapouri.com/components/apple-hello-effect",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "apple-hello-effect-spanish",
@@ -158,9 +158,9 @@
           "target": "@components/apple-hello-effect-spanish.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/apple-hello-effect",
+      "docs": "https://sepehrshapouri.com/components/apple-hello-effect",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "apple-hello-effect-vietnamese",
@@ -176,9 +176,9 @@
           "target": "@components/apple-hello-effect-vietnamese.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/apple-hello-effect",
+      "docs": "https://sepehrshapouri.com/components/apple-hello-effect",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "wheel-picker",
@@ -194,9 +194,9 @@
           "target": "@components/wheel-picker.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/react-wheel-picker",
+      "docs": "https://sepehrshapouri.com/components/react-wheel-picker",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "chevrons-up-down-icon",
@@ -212,7 +212,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "typography",
@@ -243,7 +243,7 @@
         }
       },
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -256,8 +256,8 @@
       "registryDependencies": [
         "collapsible",
         "separator",
-        "https://chanhdai.com/r/chevrons-up-down-icon.json",
-        "https://chanhdai.com/r/typography.json"
+        "https://acme.com/r/chevrons-up-down-icon.json",
+        "https://acme.com/r/typography.json"
       ],
       "files": [
         {
@@ -266,9 +266,9 @@
           "target": "@components/work-experience.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/work-experience-component",
+      "docs": "https://sepehrshapouri.com/components/work-experience-component",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "shimmering-text",
@@ -285,7 +285,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "slide-to-unlock",
@@ -295,7 +295,7 @@
         "motion"
       ],
       "registryDependencies": [
-        "https://chanhdai.com/r/shimmering-text.json"
+        "https://acme.com/r/shimmering-text.json"
       ],
       "files": [
         {
@@ -304,9 +304,9 @@
           "target": "@components/slide-to-unlock.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/slide-to-unlock",
+      "docs": "https://sepehrshapouri.com/components/slide-to-unlock",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "testimonials-marquee",
@@ -314,11 +314,11 @@
       "description": "Scrolling marquee to showcase user testimonials.",
       "registryDependencies": [
         "@kibo-ui/marquee",
-        "https://chanhdai.com/r/testimonial.json"
+        "https://acme.com/r/testimonial.json"
       ],
-      "docs": "https://chanhdai.com/components/testimonials-marquee",
+      "docs": "https://sepehrshapouri.com/components/testimonials-marquee",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -333,7 +333,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "github-stars",
@@ -351,7 +351,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "scroll-fade-effect",
@@ -439,7 +439,7 @@
         }
       },
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "consent-manager",
@@ -459,7 +459,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "copy-button",
@@ -486,7 +486,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "code-block-command",
@@ -498,7 +498,7 @@
         "jotai"
       ],
       "registryDependencies": [
-        "https://chanhdai.com/r/copy-button.json"
+        "https://acme.com/r/copy-button.json"
       ],
       "files": [
         {
@@ -527,14 +527,14 @@
         }
       },
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "testimonial-spotlight",
       "title": "Testimonial Spotlight",
       "description": "Testimonial card with spotlight effect on hover.",
       "registryDependencies": [
-        "https://chanhdai.com/r/testimonial.json"
+        "https://acme.com/r/testimonial.json"
       ],
       "files": [
         {
@@ -544,7 +544,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "glow-card-grid",
@@ -563,7 +563,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "middle-truncation",
@@ -576,9 +576,9 @@
           "target": "@components/middle-truncation.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/middle-truncation",
+      "docs": "https://sepehrshapouri.com/components/middle-truncation",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "twemoji",
@@ -607,9 +607,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/twemoji",
+      "docs": "https://sepehrshapouri.com/components/twemoji",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "elastic-slider",
@@ -619,7 +619,7 @@
         "motion"
       ],
       "registryDependencies": [
-        "https://chanhdai.com/r/use-controllable-state.json"
+        "https://acme.com/r/use-controllable-state.json"
       ],
       "files": [
         {
@@ -628,9 +628,9 @@
           "target": "@components/elastic-slider.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/elastic-slider",
+      "docs": "https://sepehrshapouri.com/components/elastic-slider",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "contribution-graph",
@@ -648,7 +648,7 @@
       ],
       "docs": "https://www.kibo-ui.com/components/contribution-graph",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "github-contributions",
@@ -660,7 +660,7 @@
       "registryDependencies": [
         "tooltip",
         "spinner",
-        "https://chanhdai.com/r/contribution-graph.json"
+        "https://acme.com/r/contribution-graph.json"
       ],
       "files": [
         {
@@ -679,9 +679,9 @@
           "@apply underline decoration-current/30 decoration-1 underline-offset-3 transition-colors hover:decoration-current": {}
         }
       },
-      "docs": "https://chanhdai.com/components/github-contributions",
+      "docs": "https://sepehrshapouri.com/components/github-contributions",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "toc-minimap",
@@ -698,9 +698,9 @@
           "target": "@components/toc-minimap.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/toc-minimap",
+      "docs": "https://sepehrshapouri.com/components/toc-minimap",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "fluid-gradient-text",
@@ -716,9 +716,9 @@
           "target": "@components/fluid-gradient-text.tsx"
         }
       ],
-      "docs": "https://chanhdai.com/components/fluid-gradient-text",
+      "docs": "https://sepehrshapouri.com/components/fluid-gradient-text",
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "brand-assets-menu",
@@ -739,7 +739,7 @@
         }
       ],
       "type": "registry:component",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "login-01",
@@ -772,7 +772,7 @@
         "login"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "hero-01",
@@ -780,7 +780,7 @@
       "description": "A hero section with a golden spiral background.",
       "registryDependencies": [
         "button",
-        "https://chanhdai.com/r/style.json"
+        "https://acme.com/r/style.json"
       ],
       "files": [
         {
@@ -803,7 +803,7 @@
         "hero"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "blog-01",
@@ -835,7 +835,7 @@
         "blog"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "blog-02",
@@ -846,7 +846,7 @@
       ],
       "registryDependencies": [
         "button",
-        "https://chanhdai.com/r/style.json"
+        "https://acme.com/r/style.json"
       ],
       "files": [
         {
@@ -868,7 +868,7 @@
         "blog"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "testimonials-01",
@@ -876,7 +876,7 @@
       "description": "A testimonials section with dual marquees.",
       "registryDependencies": [
         "https://www.kibo-ui.com/r/marquee.json",
-        "https://chanhdai.com/r/testimonial-spotlight.json"
+        "https://acme.com/r/testimonial-spotlight.json"
       ],
       "files": [
         {
@@ -899,7 +899,7 @@
         "testimonials"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "testimonials-02",
@@ -907,8 +907,8 @@
       "description": "A testimonials section with a lined layout.",
       "registryDependencies": [
         "https://www.kibo-ui.com/r/marquee.json",
-        "https://chanhdai.com/r/style.json",
-        "https://chanhdai.com/r/testimonial.json"
+        "https://acme.com/r/style.json",
+        "https://acme.com/r/testimonial.json"
       ],
       "files": [
         {
@@ -930,15 +930,15 @@
         "testimonials"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "experience-01",
       "title": "Experience 01",
       "description": "A work experience section with a lined layout.",
       "registryDependencies": [
-        "https://chanhdai.com/r/style.json",
-        "https://chanhdai.com/r/work-experience.json"
+        "https://acme.com/r/style.json",
+        "https://acme.com/r/work-experience.json"
       ],
       "files": [
         {
@@ -955,14 +955,14 @@
         "portfolio"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "team-01",
       "title": "Team 01",
       "description": "A team section with glowing cards.",
       "registryDependencies": [
-        "https://chanhdai.com/r/glow-card-grid.json"
+        "https://acme.com/r/glow-card-grid.json"
       ],
       "files": [
         {
@@ -980,7 +980,7 @@
         "team"
       ],
       "type": "registry:block",
-      "author": "ncdai <dai@chanhdai.com>"
+      "author": "ncdai <dai@sepehrshapouri.com>"
     },
     {
       "name": "style",
@@ -998,7 +998,7 @@
         }
       },
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1030,9 +1030,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1064,9 +1064,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1098,9 +1098,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1136,9 +1136,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1173,9 +1173,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1222,9 +1222,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1258,9 +1258,9 @@
           }
         }
       },
-      "docs": "https://chanhdai.com/components/theme-toggle-effect",
+      "docs": "https://sepehrshapouri.com/components/theme-toggle-effect",
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     },
     {
@@ -1284,7 +1284,7 @@
         }
       },
       "type": "registry:style",
-      "author": "ncdai <dai@chanhdai.com>",
+      "author": "ncdai <dai@sepehrshapouri.com>",
       "files": []
     }
   ]

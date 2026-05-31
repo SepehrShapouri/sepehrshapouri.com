@@ -7,7 +7,7 @@ export const PROJECTS: Project[] = [
     period: {
       start: "05.2025",
     },
-    link: "https://react-wheel-picker.chanhdai.com",
+    link: "https://react-wheel-picker.sepehrshapouri.com",
     skills: [
       "Open Source",
       "React",
@@ -30,11 +30,11 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "chanhdaidotcom",
-    title: "chanhdai.com",
+    title: "sepehrshapouri.com",
     period: {
       start: "01.2025",
     },
-    link: "https://github.com/ncdai/chanhdai.com",
+    link: "https://github.com/sepehrshapouri/sepehrshapouri.com",
     skills: [
       "Open Source",
       "Next.js 16",

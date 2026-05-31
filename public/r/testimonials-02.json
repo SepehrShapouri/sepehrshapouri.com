@@ -2,12 +2,12 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "testimonials-02",
   "title": "Testimonials 02",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "A testimonials section with a lined layout.",
   "registryDependencies": [
     "https://www.kibo-ui.com/r/marquee.json",
-    "https://chanhdai.com/r/style.json",
-    "https://chanhdai.com/r/testimonial.json"
+    "https://acme.com/r/style.json",
+    "https://acme.com/r/testimonial.json"
   ],
   "files": [
     {

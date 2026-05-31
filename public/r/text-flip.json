@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-flip",
   "title": "Text Flip",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "Animated text that cycles through items with a smooth flip transition.",
   "dependencies": [
     "motion"
@@ -15,6 +15,6 @@
       "target": "@components/text-flip.tsx"
     }
   ],
-  "docs": "https://chanhdai.com/components/text-flip",
+  "docs": "https://sepehrshapouri.com/components/text-flip",
   "type": "registry:component"
 }

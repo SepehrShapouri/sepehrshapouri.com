@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-switcher",
   "title": "Theme Switcher",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "Toggle between system, light, and dark themes in Next.js apps.",
   "dependencies": [
     "next-themes",
@@ -16,6 +16,6 @@
       "target": "@components/theme-switcher.tsx"
     }
   ],
-  "docs": "https://chanhdai.com/components/theme-switcher",
+  "docs": "https://sepehrshapouri.com/components/theme-switcher",
   "type": "registry:component"
 }

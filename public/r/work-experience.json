@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "work-experience",
   "title": "Work Experience",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "Display work experiences with role details, company logos, and durations.",
   "dependencies": [
     "react-markdown"
@@ -10,8 +10,8 @@
   "registryDependencies": [
     "collapsible",
     "separator",
-    "https://chanhdai.com/r/chevrons-up-down-icon.json",
-    "https://chanhdai.com/r/typography.json"
+    "https://acme.com/r/chevrons-up-down-icon.json",
+    "https://acme.com/r/typography.json"
   ],
   "files": [
     {
@@ -21,6 +21,6 @@
       "target": "@components/work-experience.tsx"
     }
   ],
-  "docs": "https://chanhdai.com/components/work-experience-component",
+  "docs": "https://sepehrshapouri.com/components/work-experience-component",
   "type": "registry:component"
 }

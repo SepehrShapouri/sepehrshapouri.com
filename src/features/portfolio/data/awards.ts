@@ -281,7 +281,7 @@ export const AWARDS: Award[] = [
     date: "2025-07",
     grade: "Personal Project",
     description:
-      "- Selected for [▲Vercel OSS Program](https://vercel.com/blog/summer-2025-oss-program#react-wheel-picker) summer 2025 cohort\n- Received $3,600 in platform credits, OSS Starter Pack, and priority community support\n- Project: [React Wheel Picker](https://react-wheel-picker.chanhdai.com)",
+      "- Selected for [▲Vercel OSS Program](https://vercel.com/blog/summer-2025-oss-program#react-wheel-picker) summer 2025 cohort\n- Received $3,600 in platform credits, OSS Starter Pack, and priority community support\n- Project: [React Wheel Picker](https://react-wheel-picker.sepehrshapouri.com)",
     referenceLink:
       "https://vercel.com/blog/summer-2025-oss-program#react-wheel-picker",
   },

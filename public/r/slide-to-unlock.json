@@ -2,13 +2,13 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slide-to-unlock",
   "title": "Slide to Unlock",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "Interactive slider inspired by the classic iPhone “slide to unlock” gesture.",
   "dependencies": [
     "motion"
   ],
   "registryDependencies": [
-    "https://chanhdai.com/r/shimmering-text.json"
+    "https://acme.com/r/shimmering-text.json"
   ],
   "files": [
     {
@@ -18,6 +18,6 @@
       "target": "@components/slide-to-unlock.tsx"
     }
   ],
-  "docs": "https://chanhdai.com/components/slide-to-unlock",
+  "docs": "https://sepehrshapouri.com/components/slide-to-unlock",
   "type": "registry:component"
 }

@@ -2,11 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "testimonials-01",
   "title": "Testimonials 01",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "A testimonials section with dual marquees.",
   "registryDependencies": [
     "https://www.kibo-ui.com/r/marquee.json",
-    "https://chanhdai.com/r/testimonial-spotlight.json"
+    "https://acme.com/r/testimonial-spotlight.json"
   ],
   "files": [
     {

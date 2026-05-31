@@ -17,7 +17,7 @@ export const components: Registry["items"] = [
         target: "@components/theme-switcher.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/theme-switcher",
+    docs: "https://sepehrshapouri.com/components/theme-switcher",
   },
   {
     name: "text-flip",
@@ -33,7 +33,7 @@ export const components: Registry["items"] = [
         target: "@components/text-flip.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/text-flip",
+    docs: "https://sepehrshapouri.com/components/text-flip",
   },
   {
     name: "apple-hello-effect",
@@ -48,7 +48,7 @@ export const components: Registry["items"] = [
         target: "@components/apple-hello-effect-english.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/apple-hello-effect",
+    docs: "https://sepehrshapouri.com/components/apple-hello-effect",
   },
   {
     name: "apple-hello-effect-hindi",
@@ -63,7 +63,7 @@ export const components: Registry["items"] = [
         target: "@components/apple-hello-effect-hindi.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/apple-hello-effect",
+    docs: "https://sepehrshapouri.com/components/apple-hello-effect",
   },
   {
     name: "apple-hello-effect-spanish",
@@ -78,7 +78,7 @@ export const components: Registry["items"] = [
         target: "@components/apple-hello-effect-spanish.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/apple-hello-effect",
+    docs: "https://sepehrshapouri.com/components/apple-hello-effect",
   },
   {
     name: "apple-hello-effect-vietnamese",
@@ -93,7 +93,7 @@ export const components: Registry["items"] = [
         target: "@components/apple-hello-effect-vietnamese.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/apple-hello-effect",
+    docs: "https://sepehrshapouri.com/components/apple-hello-effect",
   },
   {
     name: "wheel-picker",
@@ -109,7 +109,7 @@ export const components: Registry["items"] = [
         target: "@components/wheel-picker.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/react-wheel-picker",
+    docs: "https://sepehrshapouri.com/components/react-wheel-picker",
   },
   {
     name: "chevrons-up-down-icon",
@@ -178,7 +178,7 @@ export const components: Registry["items"] = [
         target: "@components/work-experience.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/work-experience-component",
+    docs: "https://sepehrshapouri.com/components/work-experience-component",
   },
   {
     name: "shimmering-text",
@@ -209,7 +209,7 @@ export const components: Registry["items"] = [
         target: "@components/slide-to-unlock.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/slide-to-unlock",
+    docs: "https://sepehrshapouri.com/components/slide-to-unlock",
   },
   {
     name: "testimonials-marquee",
@@ -220,7 +220,7 @@ export const components: Registry["items"] = [
       "@kibo-ui/marquee",
       getRegistryItemUrl("testimonial"),
     ],
-    docs: "https://chanhdai.com/components/testimonials-marquee",
+    docs: "https://sepehrshapouri.com/components/testimonials-marquee",
   },
   {
     name: "testimonial",
@@ -463,7 +463,7 @@ export const components: Registry["items"] = [
         target: "@components/middle-truncation.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/middle-truncation",
+    docs: "https://sepehrshapouri.com/components/middle-truncation",
   },
   {
     name: "twemoji",
@@ -493,7 +493,7 @@ export const components: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/twemoji",
+    docs: "https://sepehrshapouri.com/components/twemoji",
   },
   {
     name: "elastic-slider",
@@ -510,7 +510,7 @@ export const components: Registry["items"] = [
         target: "@components/elastic-slider.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/elastic-slider",
+    docs: "https://sepehrshapouri.com/components/elastic-slider",
   },
   {
     name: "contribution-graph",
@@ -558,7 +558,7 @@ export const components: Registry["items"] = [
           {},
       },
     },
-    docs: "https://chanhdai.com/components/github-contributions",
+    docs: "https://sepehrshapouri.com/components/github-contributions",
   },
   {
     name: "toc-minimap",
@@ -574,7 +574,7 @@ export const components: Registry["items"] = [
         target: "@components/toc-minimap.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/toc-minimap",
+    docs: "https://sepehrshapouri.com/components/toc-minimap",
   },
   {
     name: "fluid-gradient-text",
@@ -590,7 +590,7 @@ export const components: Registry["items"] = [
         target: "@components/fluid-gradient-text.tsx",
       },
     ],
-    docs: "https://chanhdai.com/components/fluid-gradient-text",
+    docs: "https://sepehrshapouri.com/components/fluid-gradient-text",
   },
   {
     name: "brand-assets-menu",

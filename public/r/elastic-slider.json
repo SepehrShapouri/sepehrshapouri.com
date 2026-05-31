@@ -2,13 +2,13 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "elastic-slider",
   "title": "Elastic Slider",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "Slider with elastic rubber-band drag and magnetic snap feedback.",
   "dependencies": [
     "motion"
   ],
   "registryDependencies": [
-    "https://chanhdai.com/r/use-controllable-state.json"
+    "https://acme.com/r/use-controllable-state.json"
   ],
   "files": [
     {
@@ -18,6 +18,6 @@
       "target": "@components/elastic-slider.tsx"
     }
   ],
-  "docs": "https://chanhdai.com/components/elastic-slider",
+  "docs": "https://sepehrshapouri.com/components/elastic-slider",
   "type": "registry:component"
 }

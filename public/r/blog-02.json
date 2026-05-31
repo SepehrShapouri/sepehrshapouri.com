@@ -2,14 +2,14 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "blog-02",
   "title": "Blog 02",
-  "author": "ncdai <dai@chanhdai.com>",
+  "author": "ncdai <dai@sepehrshapouri.com>",
   "description": "A blog section with a lined grid layout.",
   "dependencies": [
     "date-fns"
   ],
   "registryDependencies": [
     "button",
-    "https://chanhdai.com/r/style.json"
+    "https://acme.com/r/style.json"
   ],
   "files": [
     {

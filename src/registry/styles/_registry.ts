@@ -52,7 +52,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-triangle-blur",
@@ -85,7 +85,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-circle",
@@ -118,7 +118,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-circle-blur",
@@ -155,7 +155,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-circle-blur-top-left",
@@ -191,7 +191,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-polygon",
@@ -239,7 +239,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "theme-toggle-effect-polygon-gradient",
@@ -274,7 +274,7 @@ export const styles: Registry["items"] = [
         },
       },
     },
-    docs: "https://chanhdai.com/components/theme-toggle-effect",
+    docs: "https://sepehrshapouri.com/components/theme-toggle-effect",
   },
   {
     name: "thin-scrollbar",
