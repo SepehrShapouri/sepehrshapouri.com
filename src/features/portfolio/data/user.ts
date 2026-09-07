@@ -16,7 +16,6 @@ export const USER: User = {
   ],
   address: "Oludeniz, Fethiye",
   age: 21,
-  phoneNumber: "Kzg0Nzc3ODg4MTQ4", // E.164 format, base64 encoded (https://t.io.vn/base64-string-converter)
   email: "c2VwZWhyc2hhcG91cmlAaWNsb3VkLmNvbQ==", // base64 encoded
   website: "https://sepehrshapouri.com",
   jobTitle: "Fullstack developer",
@@ -50,16 +49,15 @@ export const USER: User = {
   namePronunciationUrl: asset("/audio/name-pronunciation.mp3?v=1"),
   timeZone: "Europe/Istanbul",
   keywords: [
-    "ncdai",
-    "nguyenchanhdai",
-    "nguyen chanh dai",
-    "chanhdai",
-    "chanh dai",
-    "iamncdai",
-    "quaric",
-    "zadark",
-    "nguyễn chánh đại",
-    "chánh đại",
+    "sepehr shapouri",
+    "sepehrshapouri",
+    "full-stack developer",
+    "software engineer",
+    "typescript",
+    "react",
+    "next.js",
+    "electron",
+    "ai engineering",
   ],
-  dateCreated: "2023-10-20", // YYYY-MM-DD
+  dateCreated: "2026-05-17", // YYYY-MM-DD
 }

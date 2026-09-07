@@ -34,7 +34,6 @@
     "capture": "bun run ./src/scripts/capture.mts",
     "icons:dev": "bun run ./src/scripts/build-icons.ts --watch",
     "icons:build": "bun run ./src/scripts/build-icons.ts",
-    "generate-libphonenumber-metadata": "libphonenumber-metadata-generator ./src/assets/libphonenumber.metadata.json --countries VN --extended",
     "upgrade:next": "npx @next/codemod@latest upgrade latest",
     "upgrade:tailwind": "npx @tailwindcss/upgrade@latest",
     "prepare": "husky"
@@ -64,7 +63,6 @@
     "geist": "^1.7.0",
     "hast-util-to-jsx-runtime": "^2.3.6",
     "jotai": "^2.18.1",
-    "libphonenumber-js": "^1.12.4",
     "lru-cache": "^11.2.6",
     "lucide-react": "^1.14.0",
     "motion": "^12.36.0",
@@ -106,7 +104,6 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "gray-matter": "^4.0.3",
     "husky": "^9.1.7",
-    "libphonenumber-metadata-generator": "^1.1.0",
     "lint-staged": "^16.0.0",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",

@@ -1,5 +1,11 @@
-import type { Testimonial as TestimonialType } from "@/features/portfolio/types/testimonials"
 import { cn } from "@/lib/utils"
+
+type TestimonialProps = {
+  authorName: string
+  authorTagline: string
+  url: string
+  quote: string
+}
 
 export function Testimonial({
   className,
@@ -7,7 +13,7 @@ export function Testimonial({
   authorTagline,
   url,
   quote,
-}: TestimonialType & { className?: string }) {
+}: TestimonialProps & { className?: string }) {
   return (
     <a
       href={url}

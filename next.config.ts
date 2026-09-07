@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   transpilePackages: ["next-mdx-remote"],
-  allowedDevOrigins: ["ncdai.localhost", "ncdai.local"],
+  allowedDevOrigins: ["sepehrshapouri.localhost", "sepehrshapouri.local"],
   devIndicators: false,
   images: {
     remotePatterns: [

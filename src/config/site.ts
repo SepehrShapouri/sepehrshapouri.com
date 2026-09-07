@@ -30,8 +30,6 @@ export const SOURCE_CODE_GITHUB_REPO = "sepehrshapouri/sepehrshapouri.com"
 export const SOURCE_CODE_GITHUB_URL =
   "https://github.com/sepehrshapouri/sepehrshapouri.com"
 
-export const SPONSORSHIP_URL = "https://github.com/sponsors/sepehrshapouri"
-
 export const UTM_PARAMS = {
   utm_source: "sepehrshapouri.com",
 }

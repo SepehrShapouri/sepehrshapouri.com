@@ -50,20 +50,8 @@ export default function HomePage() {
       </div>
 
       <div className="mx-auto md:max-w-3xl *:[[id]]:scroll-mt-22">
-        {/* <Separator />
-        <Blog />
-        <Separator /> */}
-
         <Experiences />
         <Separator />
-        {/* 
-        <Projects />
-        <Separator /> */}
-
-        {/* <Certifications /> */}
-        {/* <Separator /> */}
-
-        {/* <Separator /> */}
       </div>
     </>
   )

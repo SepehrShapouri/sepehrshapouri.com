@@ -701,7 +701,6 @@ export function ComponentIcon({ variant, ...props }: ComponentIconProps) {
 
     case "slide-to-unlock": {
       return (
-        // Icon designed by @ncdai
         <svg viewBox="0 0 24 24" fill="none" {...props}>
           <path
             stroke="currentColor"
@@ -733,7 +732,6 @@ export function ComponentIcon({ variant, ...props }: ComponentIconProps) {
 
     case "github-contributions": {
       return (
-        // Icon designed by @ncdai
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -808,7 +806,6 @@ export function ComponentIcon({ variant, ...props }: ComponentIconProps) {
 
     case "elastic-slider": {
       return (
-        // Icon designed by @ncdai
         <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
           <path
             stroke="currentColor"
@@ -827,7 +824,6 @@ export function ComponentIcon({ variant, ...props }: ComponentIconProps) {
 
     case "toc-minimap": {
       return (
-        // Icon designed by @ncdai
         <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
           <path
             d="M21 5H3"
