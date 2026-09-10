@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/table"
 import { Code } from "@/components/ui/typography"
 import { UTM_PARAMS } from "@/config/site"
-import { DocSponsors } from "@/features/doc/components/doc-sponsors"
 import { generator } from "@/lib/auto-type-table"
 import { rehypeAddQueryParams } from "@/lib/rehype-add-query-params"
 import {
@@ -95,7 +94,6 @@ const components: MDXRemoteProps["components"] = {
   IframeEmbed,
   FramedImage,
   Testimonial,
-  DocSponsors,
   AutoTypeTable: (props) => <AutoTypeTable {...props} generator={generator} />,
 }
 

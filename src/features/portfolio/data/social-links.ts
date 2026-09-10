@@ -10,13 +10,13 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     icon: "https://assets.sepehrshapouri.com/images/link-icons/github.webp?v=2",
     title: "GitHub",
-    subtitle: "ncdai",
+    subtitle: "sepehrshapouri",
     href: "https://github.com/sepehrshapouri",
   },
   {
     icon: "https://assets.sepehrshapouri.com/images/link-icons/linkedin.webp?v=2",
     title: "LinkedIn",
-    subtitle: "ncdai",
+    subtitle: "sepehrshapouri",
     href: "https://linkedin.com/in/sepehrshapouri",
   },
 ]

@@ -21,11 +21,8 @@ import CodeBlockCommandDemo from "@/registry/examples/code-block-command-demo"
 import CopyButtonDemo from "@/registry/examples/copy-button-demo"
 import ElasticSliderDemo from "@/registry/examples/elastic-slider-demo"
 import FluidGradientTextDemo from "@/registry/examples/fluid-gradient-text-demo-01"
-import GitHubContributionsDemo1 from "@/registry/examples/github-contributions-demo-01"
 import GitHubStarsDemo from "@/registry/examples/github-stars-demo"
-import GlowCardGridDemo01 from "@/registry/examples/glow-card-grid-demo-01"
 import HapticDemo from "@/registry/examples/haptic-demo"
-import MiddleTruncationDemo from "@/registry/examples/middle-truncation-demo"
 import ScrollFadeEffectDemo from "@/registry/examples/scroll-fade-effect-demo-01"
 import ShimmeringTextDemo2 from "@/registry/examples/shimmering-text-demo-02"
 import SlideToUnlockDemo1 from "@/registry/examples/slide-to-unlock-demo-01"
@@ -37,7 +34,6 @@ import ThemeToggleEffectDemo from "@/registry/examples/theme-toggle-effect-demo/
 import TOCMinimapDemo from "@/registry/examples/toc-minimap-demo"
 import TwemojiDemo from "@/registry/examples/twemoji-demo"
 import WheelPickerDemo from "@/registry/examples/wheel-picker-demo"
-import WorkExperienceDemo from "@/registry/examples/work-experience-demo"
 
 const title = "Component Showcase"
 const description = "Pixel-perfect, uniquely crafted."
@@ -147,16 +143,8 @@ export default function ComponentsShowcasePage() {
           <WheelPickerDemo />
         </GridItem>
 
-        <GridItem className="md:row-span-2">
-          <MiddleTruncationDemo />
-        </GridItem>
-
         <GridItem>
           <TestimonialSpotlightDemo />
-        </GridItem>
-
-        <GridItem className="p-0 md:col-span-2 md:row-span-2">
-          <GitHubContributionsDemo1 />
         </GridItem>
 
         <GridItem>
@@ -183,10 +171,6 @@ export default function ComponentsShowcasePage() {
           <TestimonialsMarqueeDemo1 />
         </GridItem>
 
-        <GridItem className="p-0 md:col-span-2 md:row-span-2">
-          <GlowCardGridDemo01 />
-        </GridItem>
-
         <GridItem>
           <GitHubStarsDemo />
         </GridItem>
@@ -201,10 +185,6 @@ export default function ComponentsShowcasePage() {
 
         <GridItem className="px-0 md:col-span-1">
           <TOCMinimapDemo />
-        </GridItem>
-
-        <GridItem className="px-0 md:col-span-2">
-          <WorkExperienceDemo />
         </GridItem>
 
         <GridItem>

@@ -1,30 +1,21 @@
 "use client"
 
 import { useRouter } from "@bprogress/next/app"
-import { useTiks } from "@rexa-developer/tiks/react"
 import { useCommandState } from "cmdk"
 import {
-  Bookmark,
-  Box,
   BriefcaseBusiness,
-  CircleCheckBig,
   CornerDownLeft,
-  Crown,
   Download,
   FileText,
   Layers,
   MoonStar,
-  Quote,
   RssIcon,
-  SquareDashed,
   SunMedium,
   TextInitial,
-  Type,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
-import { toast } from "sonner"
 
 import {
   CommandDialog,
@@ -39,11 +30,9 @@ import type { DocPreview } from "@/features/doc/types/document"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { useClickSound } from "@/hooks/soundcn/use-click-sound"
 import { trackEvent } from "@/lib/events"
-import { copyToClipboardWithEvent } from "@/utils/copy"
 
-import { ChanhDaiMark, getMarkSVG } from "./chanhdai-mark"
-import { getWordmarkSVG } from "./chanhdai-wordmark"
 import { ComponentIcon, Icons } from "./icons"
+import { SiteMark } from "./site-mark"
 import { Button } from "./ui/button"
 import { Kbd, KbdGroup } from "./ui/kbd"
 import { Separator } from "./ui/separator"
@@ -63,7 +52,7 @@ const MENU_LINKS: CommandLinkItem[] = [
   {
     title: "Home",
     href: "/",
-    icon: <ChanhDaiMark />,
+    icon: <SiteMark />,
     shortcut: "GH",
   },
   {
@@ -84,18 +73,6 @@ const MENU_LINKS: CommandLinkItem[] = [
     icon: <Icons.news />,
     shortcut: "GL",
   },
-  {
-    title: "Sponsors",
-    href: "/sponsors",
-    icon: <Icons.favourite />,
-    shortcut: "GS",
-  },
-  {
-    title: "Testimonials",
-    href: "/testimonials",
-    icon: <Quote strokeWidth={1.5} />,
-    shortcut: "GT",
-  },
 ]
 
 const PORTFOLIO_LINKS: CommandLinkItem[] = [
@@ -113,26 +90,6 @@ const PORTFOLIO_LINKS: CommandLinkItem[] = [
     title: "Experience",
     href: "/#experience",
     icon: <BriefcaseBusiness />,
-  },
-  {
-    title: "Projects",
-    href: "/#projects",
-    icon: <Box />,
-  },
-  {
-    title: "Awards",
-    href: "/#awards",
-    icon: <Crown />,
-  },
-  {
-    title: "Certifications",
-    href: "/#certs",
-    icon: <CircleCheckBig />,
-  },
-  {
-    title: "Bookmarks",
-    href: "/#bookmarks",
-    icon: <Bookmark />,
   },
   {
     title: "Download vCard",
@@ -186,8 +143,6 @@ export function CommandMenu({
 
   const [click] = useClickSound()
 
-  const { success: tiksSuccess } = useTiks()
-
   useHotkeys(
     "mod+k, slash",
     (e) => {
@@ -229,22 +184,6 @@ export function CommandMenu({
       }
     },
     [router]
-  )
-
-  const handleCopyText = useCallback(
-    (text: string, message: string) => {
-      setOpen(false)
-      copyToClipboardWithEvent(text, {
-        name: "command_menu_action",
-        properties: {
-          action: "copy",
-          text: text,
-        },
-      })
-      toast.success(message)
-      tiksSuccess()
-    },
-    [tiksSuccess]
   )
 
   const createThemeHandler = useCallback(
@@ -350,43 +289,6 @@ export function CommandMenu({
             links={SOCIAL_LINK_ITEMS}
             onLinkSelect={handleOpenLink}
           />
-
-          <CommandGroup heading="Brand Assets">
-            <CommandItem
-              onSelect={() => {
-                handleCopyText(getMarkSVG(), "Mark as SVG copied")
-              }}
-            >
-              <ChanhDaiMark />
-              Copy Mark as SVG
-            </CommandItem>
-
-            <CommandItem
-              onSelect={() => {
-                handleCopyText(getWordmarkSVG(), "Logotype as SVG copied")
-              }}
-            >
-              <Type />
-              Copy Logotype as SVG
-            </CommandItem>
-
-            <CommandItem
-              onSelect={() => handleOpenLink("/blog/chanhdai-brand")}
-            >
-              <SquareDashed />
-              Brand Guidelines
-            </CommandItem>
-
-            <CommandItem asChild>
-              <a
-                href="https://assets.sepehrshapouri.com/chanhdai-brand.zip"
-                download
-              >
-                <Download />
-                Download Brand Assets
-              </a>
-            </CommandItem>
-          </CommandGroup>
 
           <CommandGroup heading="Theme">
             <CommandItem
@@ -543,16 +445,6 @@ function buildCommandMetaMap() {
   commandMetaMap.set("Dark", { commandKind: "command" })
   commandMetaMap.set("Auto", { commandKind: "command" })
 
-  commandMetaMap.set("Copy Mark as SVG", {
-    commandKind: "command",
-  })
-  commandMetaMap.set("Copy Logotype as SVG", {
-    commandKind: "command",
-  })
-  commandMetaMap.set("Download Brand Assets", {
-    commandKind: "command",
-  })
-
   SOCIAL_LINK_ITEMS.forEach((item) => {
     commandMetaMap.set(item.title, {
       commandKind: "link",
@@ -580,7 +472,7 @@ function CommandMenuFooter() {
       <div className="flex h-10" />
 
       <div className="absolute inset-x-0 bottom-0 flex h-10 items-center justify-between gap-2 rounded-b-2xl border-t px-4 text-xs font-medium">
-        <ChanhDaiMark className="size-6 text-muted-foreground" />
+        <SiteMark className="size-6 text-muted-foreground" />
 
         <div className="flex shrink-0 items-center gap-2 max-sm:hidden">
           <span>{ENTER_ACTION_LABELS[selectedCommandKind]}</span>

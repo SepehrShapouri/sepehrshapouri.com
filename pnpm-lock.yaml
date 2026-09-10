@@ -80,9 +80,6 @@ importers:
       jotai:
         specifier: ^2.18.1
         version: 2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.6)
-      libphonenumber-js:
-        specifier: ^1.12.4
-        version: 1.12.5
       lru-cache:
         specifier: ^11.2.6
         version: 11.2.6
@@ -201,9 +198,6 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
-      libphonenumber-metadata-generator:
-        specifier: ^1.1.0
-        version: 1.1.0
       lint-staged:
         specifier: ^16.0.0
         version: 16.0.0
@@ -4615,13 +4609,6 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
-
-  libphonenumber-js@1.12.5:
-    resolution: {integrity: sha512-DOjiaVjjSmap12ztyb4QgoFmUe/GbgnEXHu+R7iowk0lzDIjScvPAm8cK9RYTEobbRb0OPlwlZUGTTJPJg13Kw==}
-
-  libphonenumber-metadata-generator@1.1.0:
-    resolution: {integrity: sha512-90cRx8tdV5rPuhFLsGFDuq8X6SjU7GFfiTa/WBncnfD1Igo7qPY5RSqtTWNzC+OY9wu80RwUx04PrWtz6RDPLw==}
-    hasBin: true
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -11427,13 +11414,6 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
-
-  libphonenumber-js@1.12.5: {}
-
-  libphonenumber-metadata-generator@1.1.0:
-    dependencies:
-      minimist: 1.2.8
-      xml2js: 0.6.2
 
   lightningcss-android-arm64@1.32.0:
     optional: true
