@@ -325,8 +325,17 @@ function skateShoe(x,y,yaw){
  pixelPoly(sole,'#a9aaa1');pixelPoly(top,'#f1e9d8');
  rect(x-1,y-2,2,1,'#c7c5b8');
 }
+function curlyHair(x,y){
+ const shadow=night?'#29282f':'#2b2422',body=night?'#443b39':'#46372e',highlight=night?'#6f6961':'#6b5240';
+ rect(x-5,y-3,10,5,shadow);rect(x-4,y+1,2,4,shadow);
+ // Stepped tufts and small highlights keep curls legible on the pixel grid.
+ for(const [dx,dy] of [[-6,-3],[-4,-6],[-1,-7],[2,-5],[3,-2],[-6,0],[-3,-2],[0,-3]]){
+  rect(x+dx+1,y+dy,2,1,body);rect(x+dx,y+dy+1,4,2,shadow);rect(x+dx+1,y+dy+3,2,1,shadow);
+  rect(x+dx+1,y+dy+1,2,1,highlight);rect(x+dx+2,y+dy+2,1,1,body);
+ }
+}
 function skater(x,y){
- const ink=night?'#607687':'#364952',skin='#c99f7b',shirt=night?'#c48c74':'#b77d64',shirtShadow=night?'#916956':'#956652',light=night?'#cad5cf':'#f4ebd5';
+ const ink=night?'#607687':'#364952',skin=night?'#b68a70':'#b1815e',skinShadow=night?'#916a57':'#936749',shirt=night?'#dce5e7':'#f7f7ef',shirtShadow=night?'#9cafba':'#c8d1cf',light=night?'#cad5cf':'#f4ebd5';
  const pushing=pushPose(),pose=kickPose(),air=!player.ground&&mode==='playing',bail=mode==='over';
  const turn=pushing.turn,load=pushing.load,crouch=(down&&player.ground?4:0)+load*3;
  const hipX=turn*5,hipY=-14+crouch,shoulderX=hipX+load*4,shoulderY=-26+crouch,halfShoulder=6-turn*2,halfHip=4-turn;
@@ -351,10 +360,11 @@ function skater(x,y){
  // Shoulder width and shirt side panel make the torso rotation visible.
  const left=shoulderX-halfShoulder,right=shoulderX+halfShoulder;
  const leftHip=hipX-halfHip,rightHip=hipX+halfHip;
- if(!air&&turn>.1){pixelLimb([[right-1,shoulderY+3],[right+4,shoulderY+8],[right+7,shoulderY+7]],'#b18a68',3)}
+ if(!air&&turn>.1){pixelLimb([[right-1,shoulderY+3],[right+4,shoulderY+8],[right+7,shoulderY+7]],skinShadow,3)}
  pixelPoly([[left,shoulderY],[right,shoulderY],[rightHip,hipY+1],[leftHip,hipY+1]],shirt);
  pixelPoly([[left,shoulderY+3],[left+2+turn,shoulderY+4],[leftHip+2,hipY],[leftHip,hipY]],shirtShadow);
  rect(leftHip,hipY,halfHip*2,2,shirtShadow);
+ rect(shoulderX-2,shoulderY,4,2,shirtShadow);
  if(air){
  pixelLimb([[-6,-24],[-11,-22-pose.tuck*3],[-14,-23-pose.tuck*3]],skin,3);pixelLimb([[6,-24],[10,-22-pose.tuck*4],[15,-25-pose.tuck*3]],skin,3);rect(-8,-25,4,5,shirt);rect(5,-25,4,4,shirt);
  }else{
@@ -364,7 +374,8 @@ function skater(x,y){
  if(turn<.8){pixelLimb([[right-1,shoulderY+3],[right+2,shoulderY+8],[right+5,shoulderY+8]],skin,3);rect(right-2,shoulderY+2,4,5,shirt)}
  }
  const headX=shoulderX+load,headY=shoulderY-6;
- rect(headX-3,headY,8,8,skin);rect(headX+4,headY+2,2,3,skin);rect(headX-5,headY-3,10,4,ink);rect(headX+3,headY-1,6,2,ink);rect(headX+3,headY+2,1,1,ink);rect(headX-4,headY+1,2,5,ink);
+ rect(headX-3,headY,8,8,skin);rect(headX+4,headY+2,2,3,skin);rect(headX-3,headY+3,2,4,skinShadow);
+ curlyHair(headX,headY);rect(headX+3,headY+2,1,1,'#302b2a');rect(headX-2,headY+2,2,2,skin);
  ctx.restore();
 }
 function drawObstacle(o,p){
