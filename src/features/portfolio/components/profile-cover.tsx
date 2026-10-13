@@ -1,7 +1,8 @@
 "use client"
 
 import { useAtom } from "jotai"
-import { useEffect } from "react"
+import { useTheme } from "next-themes"
+import { useCallback, useEffect, useRef } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -9,6 +10,21 @@ import { SKATE_GAME_PANEL_ID, skateGameOpenAtom } from "../state/skate-game"
 
 export function ProfileCover() {
   const [isOpen, setIsOpen] = useAtom(skateGameOpenAtom)
+  const { resolvedTheme } = useTheme()
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  const syncGameTheme = useCallback(() => {
+    if (resolvedTheme !== "light" && resolvedTheme !== "dark") return
+
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: "sepi-skate:theme", theme: resolvedTheme },
+      window.location.origin
+    )
+  }, [resolvedTheme])
+
+  useEffect(() => {
+    if (isOpen) syncGameTheme()
+  }, [isOpen, syncGameTheme])
 
   useEffect(() => {
     return () => setIsOpen(false)
@@ -35,9 +51,11 @@ export function ProfileCover() {
         >
           {isOpen ? (
             <iframe
+              ref={iframeRef}
               src="/sepi-skate/index.html"
               title="Sepi Skate: an interactive pixel skateboard game"
               className="block size-full border-0"
+              onLoad={syncGameTheme}
             />
           ) : null}
         </div>

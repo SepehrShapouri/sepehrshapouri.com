@@ -217,47 +217,69 @@ kbd {
 .hidden {
   display: none !important;
 }
-body.sunset .stage {
-  background: #eee3e0;
+/* The parent supplies its resolved theme without reloading the game. */
+body.night {
+  color: #e1e7e8;
+  --chrome: #18181b;
+  --chrome-ink: #a1a1aa;
+  --line: #27272a;
+  --control: #27272a;
 }
-body.sunset .hud-label,
-body.sunset .best strong {
-  color: #836e75;
+body.night .stage {
+  background: #111b2c;
 }
-body.sunset .callout {
-  background: #faf5efe6;
-  color: #785c53;
+body.night .hud {
+  text-shadow: 0 1px 3px #111b2c;
 }
-body.sunset .callout strong {
-  color: #764d40;
+body.night .hud-label {
+  color: #adbacb;
 }
-body.sunset .callout-combo {
-  color: #94796c;
+body.night .best strong {
+  color: #bac8d3;
 }
-body.sunset .pace-meter.is-fast strong {
-  color: #a87351;
+body.night .pace-track {
+  background: #a3b4c033;
 }
-body.sunset .overlay::before {
+body.night .pace-track i {
+  background: #d3b680;
+}
+body.night .pace-meter.is-fast strong {
+  color: #f0d69e;
+}
+body.night .overlay::before {
   background: radial-gradient(
     ellipse at center,
-    #f5e9ddfa 0%,
-    #f5e9dde8 39%,
-    #f5e9dd85 60%,
-    #f5e9dd00 73%
+    #111b2cfa 0%,
+    #111b2ce8 39%,
+    #111b2c85 60%,
+    #111b2c00 73%
   );
 }
-body.sunset .overlay p {
-  color: #886b5b;
+body.night .overlay p {
+  color: #c5d0d8;
 }
-
-/* Embedded color-scheme follows the portfolio's theme, including manual toggles. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --chrome: #18181b;
-    --chrome-ink: #a1a1aa;
-    --line: #27272a;
-    --control: #27272a;
-  }
+body.night .play {
+  background: #e0e6d6;
+  color: #202c33;
+  box-shadow: 2px 2px 0 #758778;
+}
+body.night .play:hover {
+  background: #f1f3e9;
+}
+body.night .callout {
+  border-color: #a6bbca26;
+  background: #182636ed;
+  color: #c4d0d8;
+}
+body.night .callout strong {
+  color: #f0d69e;
+}
+body.night .callout-combo {
+  color: #a2b4c1;
+}
+body.night button:focus-visible,
+body.night canvas:focus-visible {
+  outline-color: #d3b680;
 }
 
 @media (max-width: 540px) {
