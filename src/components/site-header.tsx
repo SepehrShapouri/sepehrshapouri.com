@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 import { NavDesktop } from "@/components/nav-desktop"
-import { SiteWordmark } from "@/components/site-wordmark"
+import { SiteMark } from "@/components/site-mark"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Separator } from "@/components/ui/separator"
 import { MAIN_NAV } from "@/config/site"
@@ -16,7 +16,7 @@ export function SiteHeader() {
           href="/"
           aria-label="Home"
         >
-          <SiteWordmark />
+          <SiteMark className="size-8" />
         </Link>
 
         <div className="flex-1" />
