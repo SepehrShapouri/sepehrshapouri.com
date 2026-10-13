@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Sepi Skate</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="playground" aria-label="Interactive pixel skateboard game">
+      <div class="stage" id="stage">
+        <canvas
+          id="game"
+          tabindex="0"
+          aria-label="Skate game. Hold right arrow or D to push faster. Space to ollie, X to kickflip in the air, hold down arrow to grind rails, P to pause."
+        ></canvas>
+        <div class="hud">
+          <div>
+            <span class="hud-label">SCORE</span
+            ><strong id="score">00000</strong>
+          </div>
+          <div class="pace-meter" id="pace-meter" aria-label="Skating pace">
+            <span class="hud-label" id="pace-label">CRUISE</span
+            ><strong id="pace">1.0&#215;</strong
+            ><span class="pace-track"><i></i></span>
+          </div>
+          <div class="best">
+            <span class="hud-label">PERSONAL BEST</span
+            ><strong id="best">00000</strong>
+          </div>
+        </div>
+        <div id="callout" class="callout" aria-live="polite"></div>
+        <div class="overlay is-ready" id="overlay">
+          <h2 id="overlay-title"></h2>
+          <p id="overlay-copy"></p>
+          <button class="play" id="play">Let's skate</button>
+        </div>
+        <div class="session-label" id="session-label">
+          FREE RIDE &#183; NO DESTINATION
+        </div>
+      </div>
+      <div class="game-bottom">
+        <div class="keyboard-controls" aria-label="Game controls">
+          <span title="Hold right arrow or D"><kbd>&#8594;</kbd> push</span>
+          <span><kbd>Space</kbd> jump</span>
+          <span><kbd>X</kbd> flip</span>
+          <span><kbd>&#8595;</kbd> grind</span>
+          <span><kbd>P</kbd> pause</span>
+        </div>
+      </div>
+      <div class="touch-controls">
+        <button id="push" aria-label="Hold to push faster">
+          &#8594; <span>HOLD TO PUSH</span>
+        </button>
+        <button id="jump">&#8593; <span>OLLIE</span></button>
+        <button id="flip">&#10023; <span>KICKFLIP</span></button>
+        <button id="grind">&#8595; <span>HOLD TO GRIND</span></button>
+      </div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

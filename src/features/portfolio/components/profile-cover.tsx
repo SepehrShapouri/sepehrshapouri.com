@@ -1,27 +1,18 @@
-"use client"
-
-import { useRef } from "react"
-
-import { Magnet } from "@/components/react-bits/magnet"
-import { Signature } from "@/components/signature"
 import { cn } from "@/lib/utils"
 
 export function ProfileCover() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
   return (
     <div
-      ref={containerRef}
       className={cn(
-        "aspect-2.5/1 border-x border-line select-none sm:aspect-3.5/1",
-        "flex items-center justify-center",
-        "screen-line-top screen-line-bottom before:-top-px after:-bottom-px",
-        "bg-black/0.75 bg-[radial-gradient(var(--pattern-foreground)_1px,transparent_0)] bg-size-[10px_10px] bg-center [--pattern-foreground:var(--color-zinc-950)]/5 dark:bg-white/0.75 dark:[--pattern-foreground:var(--color-white)]/5"
+        "border-x border-line",
+        "screen-line-top screen-line-bottom before:-top-px after:-bottom-px"
       )}
     >
-      <Magnet containerRef={containerRef} magnetStrength={6}>
-        <Signature />
-      </Magnet>
+      <iframe
+        src="/sepi-skate/index.html"
+        title="Sepi Skate: an interactive pixel skateboard game"
+        className="block h-80 w-full border-0 [@media(pointer:coarse)]:h-100"
+      />
     </div>
   )
 }
