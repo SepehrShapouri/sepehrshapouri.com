@@ -5,6 +5,7 @@ import { SiteWordmark } from "@/components/site-wordmark"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Separator } from "@/components/ui/separator"
 import { MAIN_NAV } from "@/config/site"
+import { SkateGameToggle } from "@/features/portfolio/components/skate-game-toggle"
 
 export function SiteHeader() {
   return (
@@ -22,7 +23,8 @@ export function SiteHeader() {
 
         <NavDesktop items={MAIN_NAV} />
 
-        <div className="flex items-center *:first:mr-2 max-sm:*:data-[slot=command-menu-trigger]:hidden">
+        <div className="flex items-center gap-1 max-sm:*:data-[slot=command-menu-trigger]:hidden">
+          <SkateGameToggle />
           <Separator
             orientation="vertical"
             className="mx-2 data-vertical:h-4 data-vertical:self-center"

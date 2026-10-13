@@ -176,14 +176,6 @@ canvas:focus-visible {
 kbd {
   font: inherit;
 }
-.session-label {
-  position: absolute;
-  bottom: 9px;
-  right: 16px;
-  font: 6px var(--mono);
-  letter-spacing: 1px;
-  color: #6e7564;
-}
 .callout {
   position: absolute;
   bottom: 12px;
