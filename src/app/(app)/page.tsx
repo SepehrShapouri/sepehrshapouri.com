@@ -7,6 +7,7 @@ import { GitHubContributions } from "@/features/portfolio/components/github-cont
 import { Overview } from "@/features/portfolio/components/overview"
 import { ProfileCover } from "@/features/portfolio/components/profile-cover"
 import { ProfileHeader } from "@/features/portfolio/components/profile-header"
+import { Projects } from "@/features/portfolio/components/projects"
 import { SpotifyWidget } from "@/features/portfolio/components/spotify-widget"
 import { TechStack } from "@/features/portfolio/components/tech-stack"
 import { USER } from "@/features/portfolio/data/user"
@@ -51,6 +52,9 @@ export default function HomePage() {
 
       <div className="mx-auto md:max-w-3xl *:[[id]]:scroll-mt-22">
         <Experiences />
+        <Separator />
+
+        <Projects />
         <Separator />
       </div>
     </>

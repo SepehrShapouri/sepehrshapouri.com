@@ -4,6 +4,7 @@ import { SITE_INFO } from "@/config/site"
 import { getBlogDocs } from "@/features/doc/data/documents"
 import { getLLMText } from "@/features/doc/lib/get-llm-text"
 import { EXPERIENCES } from "@/features/portfolio/data/experiences"
+import { PROJECTS } from "@/features/portfolio/data/projects"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { TECH_STACK } from "@/features/portfolio/data/tech-stack"
 import { USER } from "@/features/portfolio/data/user"
@@ -42,6 +43,19 @@ ${EXPERIENCES.map((item) =>
 ).join("\n\n")}
 `
 
+const projectsText = `## Projects
+
+${PROJECTS.map((item) => {
+  const status = item.isActive ? "\n\nStatus: Active" : ""
+  const period = item.period
+    ? `\n\nPeriod: ${item.period.start} - ${item.period.end ?? "Present"}`
+    : ""
+  const skills = `\n\nSkills: ${item.skills.join(", ")}`
+  const description = item.description ? `\n\n${item.description.trim()}` : ""
+  return `### ${item.title}\n\nProject URL: ${item.link}${status}${period}${skills}${description}`
+}).join("\n\n")}
+`
+
 async function getBlogContent() {
   const text = await Promise.all(
     allPosts.map(
@@ -61,6 +75,7 @@ async function getContent() {
 
 ${aboutText}
 ${experienceText}
+${projectsText}
 
 ## Blog
 
