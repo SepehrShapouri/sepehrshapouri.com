@@ -1,0 +1,57 @@
+Sepi Skate - recorded sound effects
+
+All source recordings are released under CC0 1.0 Universal:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Downloaded from public Freesound HQ preview files on 2026-10-14.
+Adapted into mono 22.05 kHz PCM WAV files: trimmed, filtered, DC offset removed,
+level adjusted, with short fades on one-shots and crossfaded loop seams.
+The shuv-it recording uses its mid (left) channel as documented by its creator.
+
+rolling.wav
+  Creator: Bruno_Garcez
+  Source: https://freesound.org/people/Bruno_Garcez/sounds/243765/
+  Public audio: https://cdn.freesound.org/previews/243/243765_3557375-hq.mp3
+  Excerpt: 1.800-3.300s; loop
+
+grind-metal.wav
+  Creator: 21100495
+  Source: https://freesound.org/people/21100495/sounds/655371/
+  Public audio: https://cdn.freesound.org/previews/655/655371_13723333-hq.mp3
+  Excerpt: 0.320-0.740s; loop
+
+grind-slide.wav
+  Creator: 21100495
+  Source: https://freesound.org/people/21100495/sounds/655372/
+  Public audio: https://cdn.freesound.org/previews/655/655372_13723333-hq.mp3
+  Excerpt: 11.300-12.020s; loop
+
+pop.wav
+  Creator: nolimitkid
+  Source: https://freesound.org/people/nolimitkid/sounds/515229/
+  Public audio: https://cdn.freesound.org/previews/515/515229_11123146-hq.mp3
+  Excerpt: 0.000-0.180s; one-shot
+
+flip.wav
+  Creator: nolimitkid
+  Source: https://freesound.org/people/nolimitkid/sounds/515230/
+  Public audio: https://cdn.freesound.org/previews/515/515230_11123146-hq.mp3
+  Excerpt: 0.000-0.150s; one-shot
+
+shuvit.wav
+  Creator: mbezzola
+  Source: https://freesound.org/people/mbezzola/sounds/105077/
+  Public audio: https://cdn.freesound.org/previews/105/105077_537412-hq.mp3
+  Excerpt: 0.015-0.195s; one-shot
+
+land.wav
+  Creator: nolimitkid
+  Source: https://freesound.org/people/nolimitkid/sounds/515229/
+  Public audio: https://cdn.freesound.org/previews/515/515229_11123146-hq.mp3
+  Excerpt: 0.470-0.850s; one-shot
+
+bail.wav
+  Creator: nolimitkid
+  Source: https://freesound.org/people/nolimitkid/sounds/515230/
+  Public audio: https://cdn.freesound.org/previews/515/515230_11123146-hq.mp3
+  Excerpt: 0.390-1.010s; one-shot
