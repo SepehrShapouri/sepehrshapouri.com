@@ -13,7 +13,7 @@
         <canvas
           id="game"
           tabindex="0"
-          aria-label="Skate game. Hold right arrow or D to push. Space to ollie, X to kickflip, Z to shuv-it. Hold C to manual and down arrow to grind. Release a manual before the balance bar fills. Land and roll away to bank your combo. P to pause."
+          aria-label="Skate game. Hold right arrow or D to push. Space to ollie, X to kickflip, Z to shuv-it. Hold C to manual. Hold down arrow to grind: add left arrow for a boardslide or right arrow for a 5–0. On touch, hold Grind and slide left or right. Release a manual before the balance bar fills. Land and roll away to bank your combo. P to pause."
         ></canvas>
         <div class="hud">
           <div>
@@ -59,7 +59,10 @@
           <span title="Hold C; release before the balance bar fills"
             ><kbd>C</kbd> manual</span
           >
-          <span><kbd>&#8595;</kbd> grind</span>
+          <span
+            title="Hold down for 50–50; add left for boardslide or right for 5–0"
+            ><kbd>&#8595; + &#8592;/&#8594;</kbd> grinds</span
+          >
           <span><kbd>P</kbd> pause</span>
         </div>
       </div>
@@ -79,7 +82,13 @@
         >
           &#8596; <span>HOLD TO MANUAL</span>
         </button>
-        <button id="grind">&#8595; <span>HOLD TO GRIND</span></button>
+        <button
+          id="grind"
+          aria-label="Hold to grind; slide left for boardslide or right for 5–0"
+          aria-pressed="false"
+        >
+          &#8595; <span id="grind-label">HOLD + SLIDE</span>
+        </button>
       </div>
     </main>
     <script src="game.js"></script>

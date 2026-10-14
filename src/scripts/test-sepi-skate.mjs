@@ -93,11 +93,12 @@ function game() {
   // Expose the real game only inside this test VM; the shipped script has no test API.
   const inspect = `
     globalThis.game = {
-      jump, flip, shuvit, beginManual, pause, end, update, trickPose,
+      jump, flip, shuvit, beginManual, pause, end, update, trickPose, grindPose, spawn,
       reset(){start();nextSpawn=1e9},
       releaseManual(){manualKey=false;manualTouch=false},
       scene(items,pose){obstacles=items;Object.assign(player,pose)},
-      state(){return {mode,score,pending,combo,value:comboValue(),tricks:[...comboTricks],manual,manualTime,held:manualHeld(),grinding,ground:player.ground,flipTime,shuvTime,comboTime,G,x:player.x}}
+      setPace(value){speed=value},
+      state(){return {mode,score,pending,combo,value:comboValue(),tricks:[...comboTricks],manual,manualTime,held:manualHeld(),grinding,grindStyle,grindStyleTime,grindHeld:down,selectedGrind:selectedGrindStyle(),ground:player.ground,flipTime,shuvTime,comboTime,G,x:player.x,nextSpawn,obstacles:obstacles.map(({type,x,w,h})=>({type,x,w,h}))}}
     };
   `
   vm.runInContext(source.replace(/\}\)\(\);\s*$/, `${inspect}})();`), context)
@@ -124,8 +125,16 @@ function game() {
         ...modifiers,
       })
     },
-    touch(id, type) {
-      elements.get(id).dispatch(type, { pointerId: 1, preventDefault() {} })
+    blur() {
+      window.dispatch("blur")
+    },
+    touch(id, type, pointer = {}) {
+      elements.get(id).dispatch(type, {
+        pointerId: 1,
+        clientX: 100,
+        preventDefault() {},
+        ...pointer,
+      })
     },
   }
 }
@@ -211,6 +220,7 @@ test("jumping out of a rail grind preserves its bonus and grind points", () => {
   g.key("ArrowDown", true)
   g.tick(0.02)
   assert.equal(g.state().grinding, true)
+  g.tick(0.18)
   assert.deepEqual(g.state().tricks, ["Kickflip", "50–50 grind"])
   g.tick(0.15)
   assert.equal(g.state().combo, 2)
@@ -330,4 +340,202 @@ test("touch and keyboard manual holds are independent and cancellation releases 
   assert.equal(g.state().combo, 0)
   assert.equal(g.state().shuvTime, 0)
   assert.equal(g.state().manualTime, 0)
+})
+
+function approachRail(g, width = 240, type = "rail") {
+  const { x, G } = g.state()
+  g.scene([{ type, x: x - 8, w: width, h: 18 }], {
+    y: G - 19,
+    vy: 40,
+    ground: false,
+    support: null,
+  })
+}
+
+test("boardslides and 5–0s use distinct poses and award settled style changes", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  g.key("ArrowLeft", true)
+  g.tick(0.1)
+  assert.equal(g.state().grinding, true)
+  assert.equal(g.state().pending, 0)
+  g.tick(0.15)
+  assert.deepEqual(g.state().tricks, ["Boardslide"])
+  assert.ok(g.grindPose().yaw > 1.5)
+  assert.equal(g.grindPose().tilt, 0)
+  const first = g.state().pending
+  g.key("ArrowLeft", false)
+  g.key("ArrowRight", true)
+  g.tick(0.25)
+  assert.deepEqual(g.state().tricks, ["Boardslide", "5–0"])
+  assert.ok(g.grindPose().yaw < 0.02)
+  assert.ok(g.grindPose().tilt < -0.18)
+  assert.ok(g.state().pending >= first + 175)
+  assert.equal(g.state().combo, 2)
+})
+
+test("repeating a style on the same rail adds time points only", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  g.key("ArrowLeft", true)
+  g.tick(0.25)
+  g.key("ArrowLeft", false)
+  g.key("ArrowRight", true)
+  g.tick(0.25)
+  const before = g.state()
+  g.key("ArrowRight", false)
+  g.key("ArrowLeft", true)
+  g.tick(0.25)
+  assert.equal(g.state().combo, before.combo)
+  assert.deepEqual(g.state().tricks, before.tricks)
+  assert.ok(
+    g.state().pending > before.pending &&
+      g.state().pending < before.pending + 10
+  )
+})
+
+test("rapid stance taps cannot earn entry bonuses or inflate a multiplier", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  for (let i = 0; i < 8; i++) {
+    const next = i % 2 ? "ArrowRight" : "ArrowLeft"
+    const previous = i % 2 ? "ArrowLeft" : "ArrowRight"
+    g.key(previous, false)
+    g.key(next, true)
+    g.tick(0.05)
+  }
+  assert.equal(g.state().grinding, true)
+  assert.equal(g.state().combo, 0)
+  assert.equal(g.state().pending, 0)
+})
+
+test("repeated styles on a new rail earn a reduced entry bonus within the combo", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  g.key("ArrowLeft", true)
+  g.tick(0.25)
+  const first = g.state().pending
+  approachRail(g)
+  g.tick(0.25)
+  const repeatedEntry = g.state().pending - first
+  assert.ok(repeatedEntry >= 60 && repeatedEntry < 70)
+  assert.equal(g.state().combo, 2)
+  assert.deepEqual(g.state().tricks, ["Boardslide", "Boardslide"])
+})
+
+test("new grinds carry into air tricks and bank only after a clean exit", () => {
+  const g = game()
+  approachRail(g, 112)
+  g.key("ArrowDown", true)
+  g.key("ArrowRight", true)
+  g.tick(0.55)
+  const grind = g.state()
+  assert.deepEqual(grind.tricks, ["5–0"])
+  assert.ok(grind.score < 5)
+  g.jump()
+  g.shuvit()
+  g.key("ArrowDown", false)
+  g.key("ArrowRight", false)
+  assert.equal(g.state().pending, grind.pending + 70)
+  assert.equal(g.state().combo, 2)
+  g.tick(1.9)
+  assert.equal(g.state().mode, "playing")
+  assert.equal(g.state().pending, 0)
+  assert.ok(g.state().score >= (grind.pending + 70) * 2)
+})
+
+test("both new stances work on ledges as well as rails", () => {
+  for (const type of ["curb", "bench"]) {
+    const g = game()
+    approachRail(g, 112, type)
+    g.key("ArrowDown", true)
+    g.key("ArrowLeft", true)
+    g.tick(0.25)
+    assert.deepEqual(g.state().tricks, ["Boardslide"])
+    g.key("ArrowLeft", false)
+    g.key("ArrowRight", true)
+    g.tick(0.25)
+    assert.deepEqual(g.state().tricks, ["Boardslide", "5–0"])
+    assert.equal(g.state().mode, "playing")
+  }
+})
+
+test("long rails remain collidable until their trailing edge leaves the screen", () => {
+  const g = game()
+  const { G } = g.state()
+  g.scene([{ type: "rail", x: -95, w: 240, h: 18 }], {
+    y: G - 19,
+    vy: 40,
+    ground: false,
+  })
+  g.key("ArrowDown", true)
+  g.tick(0.25)
+  assert.equal(g.state().obstacles.length, 1)
+  assert.equal(g.state().grinding, true)
+  assert.equal(g.state().mode, "playing")
+  g.tick(2)
+  assert.equal(g.state().pending, 0)
+  assert.equal(g.state().mode, "playing")
+})
+
+test("rail length scales with speed and leaves space for the next obstacle", () => {
+  for (const speed of [83, 213]) {
+    const g = game()
+    g.setPace(speed)
+    g.spawn()
+    g.spawn()
+    g.spawn()
+    const rail = g.state().obstacles.at(-1)
+    assert.equal(rail.type, "rail")
+    assert.ok(rail.w >= Math.max(112, speed * 1.1))
+    assert.ok(g.state().nextSpawn - rail.w >= speed * 1.35 + 35 - 1e-9)
+  }
+})
+
+test("touch dragging selects stances and cancellation does not cancel a keyboard hold", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  g.touch("grind", "pointerdown")
+  g.touch("grind", "pointermove", { clientX: 70 })
+  g.tick(0.25)
+  assert.equal(g.state().grindStyle, "boardslide")
+  g.touch("grind", "pointermove", { pointerId: 2, clientX: 140 })
+  assert.equal(g.state().selectedGrind, "boardslide")
+  g.touch("grind", "pointermove", { clientX: 130 })
+  g.tick(0.25)
+  assert.equal(g.state().grindStyle, "5-0")
+  g.touch("grind", "pointercancel")
+  assert.equal(g.state().grindHeld, true)
+  assert.equal(g.state().selectedGrind, "50-50")
+  g.key("ArrowDown", false)
+  assert.equal(g.state().grindHeld, false)
+})
+
+test("pause, blur and restart clear stance inputs without banking paused points", () => {
+  const g = game()
+  approachRail(g)
+  g.key("ArrowDown", true)
+  g.key("ArrowLeft", true)
+  g.tick(0.25)
+  g.pause()
+  const paused = g.state()
+  g.tick(2)
+  assert.equal(g.state().pending, paused.pending)
+  assert.equal(g.state().grindHeld, false)
+  assert.equal(g.state().selectedGrind, "50-50")
+  g.reset()
+  g.touch("grind", "pointerdown")
+  g.touch("grind", "pointermove", { clientX: 130 })
+  g.blur()
+  assert.equal(g.state().mode, "paused")
+  assert.equal(g.state().grindHeld, false)
+  g.reset()
+  assert.equal(g.state().grindStyleTime, 0)
+  assert.equal(g.grindPose().yaw, 0)
+  assert.equal(g.grindPose().tilt, 0)
 })

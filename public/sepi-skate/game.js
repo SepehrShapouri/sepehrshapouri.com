@@ -6,6 +6,15 @@ let W=560,H=176,G=139,mode='ready',time=0,scroll=0,speed=83,score=0,best=0,combo
 const player={x:115,y:139,vy:0,ground:true,support:null};
 let obstacleCount=0,shuvTime=0,shuvDone=false,airComboIndex=-1,comboTricks=[],comboTime=0;
 let manual=false,manualKey=false,manualTouch=false,manualTime=0,manualScored=false,landingTime=0;
+let grindObstacle=null,grindStyle='50-50',grindStyleTime=0,grindStyleScored=false,grindYaw=0,grindTilt=0;
+let grindPointerId=null,grindPointerStart=0,grindTouchStyle='50-50';
+const grindKeys=new Set(),comboGrindStyles=new Set();
+const GRIND_SETTLE=.18, GRIND_DRAG_THRESHOLD=18;
+const GRIND_STYLES={
+ '50-50':{label:'50–50',points:100,rate:22},
+ boardslide:{label:'Boardslide',points:120,rate:26},
+ '5-0':{label:'5–0',points:140,rate:30}
+};
 const FLIP_DURATION=.5, FLIP_CATCH=.09;
 const SHUV_DURATION=.44, COMBO_GRACE=.8, MANUAL_LIMIT=3, MANUAL_MIN=.25, LANDING_DURATION=.18;
 const PUSH_SETUP=.28, PUSH_STROKE=.60, PUSH_RETURN=.32, MAX_BOOST=68;
@@ -69,18 +78,20 @@ const palette=()=>night?NIGHT_PALETTE:DAY_PALETTE;
 function resize(){W=Math.max(320,Math.round(stage.clientWidth/2));H=Math.round(stage.clientHeight/2);G=H-37;canvas.width=W;canvas.height=H;player.x=Math.min(115,W*.23);if(player.ground)player.y=player.support?surfaceY(player.support):G}new ResizeObserver(resize).observe(stage);
 function fmt(n){return Math.floor(n).toString().padStart(5,'0')}
 function hud(){
- $('score').textContent=fmt(score);$('best').textContent=fmt(best);$('pace').textContent=(speed/cruiseSpeed()).toFixed(1)+'×';$('pace-label').textContent=manual?'MANUAL':pushTime>0&&pushMode!=='return'?'PUSHING':boost>4?'COASTING':'CRUISE';$('pace-meter').style.setProperty('--pace',String(Math.round(boost/MAX_BOOST*100))+'%');$('pace-meter').classList.toggle('is-fast',boost>20);
+ $('score').textContent=fmt(score);$('best').textContent=fmt(best);$('pace').textContent=(speed/cruiseSpeed()).toFixed(1)+'×';$('pace-label').textContent=grinding?GRIND_STYLES[grindStyle].label.toUpperCase():manual?'MANUAL':pushTime>0&&pushMode!=='return'?'PUSHING':boost>4?'COASTING':'CRUISE';$('pace-meter').style.setProperty('--pace',String(Math.round(boost/MAX_BOOST*100))+'%');$('pace-meter').classList.toggle('is-fast',boost>20);
  const active=pending>0||manual,panel=$('combo-panel');
  panel.classList.toggle('hidden',!active);$('callout').classList.toggle('hidden',active);
  if(active){
   $('combo-tricks').textContent=comboTricks.slice(-3).join(' → ')||'Manual';
   $('combo-tricks').title=comboTricks.join(' → ');
   $('combo-value').textContent='+'+comboValue();$('combo-multiplier').textContent=comboMultiplier()+'×';
-  $('combo-status').textContent=manual?'Release to bank':player.ground&&!grinding?'Landing…':'At risk';
+  $('combo-status').textContent=grinding&&!grindStyleScored?'Locking in':manual?'Release to bank':player.ground&&!grinding?'Landing…':'At risk';
   panel.classList.toggle('is-manual',manual);panel.classList.toggle('is-critical',manual&&manualTime>MANUAL_LIMIT*.75);
   panel.style.setProperty('--combo-progress',String(100*(manual?manualTime/MANUAL_LIMIT:comboTime/COMBO_GRACE))+'%');
  }
  $('manual').setAttribute('aria-pressed',String(manualHeld()));
+ $('grind').setAttribute('aria-pressed',String(down));
+ $('grind-label').textContent=down?GRIND_STYLES[selectedGrindStyle()].label:'HOLD + SLIDE';
 }hud();
 function tone(freq,dur=.07,type='square',volume=.025){if(muted)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*.65,audio.currentTime+dur);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+dur);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+dur)}catch{}}
 function toast(label,points=0,multiplier=1){
@@ -95,7 +106,7 @@ function burst(x,y,n=10,c){for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.rand
 function overlay(show,title,copy,label){$('overlay').classList.toggle('hidden',!show);$('overlay').classList.toggle('is-ready',mode==='ready');$('overlay').classList.toggle('is-over',mode==='over');if(title!==undefined)$('overlay-title').innerHTML=title;if(copy!==undefined)$('overlay-copy').textContent=copy;if(label)$('play').textContent=label}
 function comboMultiplier(){return Math.max(1,Math.min(combo,4))}
 function comboValue(){return Math.floor(pending*comboMultiplier())}
-function clearCombo(){pending=0;combo=0;comboTime=0;comboTricks=[];airComboIndex=-1}
+function clearCombo(){pending=0;combo=0;comboTime=0;comboTricks=[];airComboIndex=-1;comboGrindStyles.clear()}
 function addComboTrick(label,points){pending+=points;combo++;comboTime=0;comboTricks.push(label)}
 function bankCombo(){
  if(pending<=0)return;
@@ -136,8 +147,24 @@ function updateCombo(dt){
  comboTime+=dt;
  if(comboTime>=COMBO_GRACE)bankCombo();
 }
+function syncGrindInput(){down=grindKeys.has('arrowdown')||grindPointerId!==null}
+function selectedGrindStyle(){
+ if(grindPointerId!==null)return grindTouchStyle;
+ const left=grindKeys.has('arrowleft'),right=grindKeys.has('arrowright');
+ return left!==right?(left?'boardslide':'5-0'):'50-50';
+}
+function clearGrindInput(){grindKeys.clear();grindPointerId=null;grindTouchStyle='50-50';syncGrindInput()}
+function clearGrindContact(){grindObstacle=null;grindStyleTime=0;grindStyleScored=false}
+function grindPose(){
+ return {yaw:grindYaw,tilt:grindTilt,lift:-2*(1-Math.sin(grindYaw))};
+}
+function updateGrindPose(dt){
+ const blend=1-Math.exp(-20*dt);
+ grindYaw+=((grinding&&grindStyle==='boardslide'?Math.PI/2:0)-grindYaw)*blend;
+ grindTilt+=((grinding&&grindStyle==='5-0'?-.19:0)-grindTilt)*blend;
+}
 function start(){
- mode='playing';score=0;clearCombo();distance=0;speed=83;boost=0;clearPush();clearManualInput();
+ mode='playing';score=0;clearCombo();distance=0;speed=83;boost=0;clearPush();clearManualInput();clearGrindInput();clearGrindContact();grindStyle='50-50';grindYaw=0;grindTilt=0;
  obstacles=[];particles=[];nextSpawn=45;player.y=G;player.vy=0;player.ground=true;player.support=null;obstacleCount=0;
  flipTime=0;flipDone=false;shuvTime=0;shuvDone=false;down=false;grinding=false;manual=false;manualTime=0;manualScored=false;landingTime=0;
  $('callout').textContent='';overlay(false);canvas.focus({preventScroll:true});hud();tone(400);
@@ -147,7 +174,7 @@ function jump(){
  if(mode==='paused'){pause();return}
  if(mode!=='playing')return;
  if(player.ground||grinding){
-  pushTime=0;player.support=null;player.vy=-171;player.ground=false;grinding=false;
+  pushTime=0;player.support=null;player.vy=-171;player.ground=false;grinding=false;clearGrindContact();
   beginAirTrick('Ollie',10);burst(player.x,player.y,5);tone(360,.10);
  }
 }
@@ -161,13 +188,13 @@ function shuvit(){
 }
 function pause(){
  if(mode==='playing'){
-  mode='paused';down=false;clearPush();clearManualInput();manual=false;manualTime=0;manualScored=false;
+  mode='paused';clearGrindInput();clearPush();clearManualInput();manual=false;manualTime=0;manualScored=false;
   overlay(true,'Catch your<br>breath.','Your session will be right here.','Keep rolling');
  }else if(mode==='paused'){mode='playing';overlay(false);canvas.focus({preventScroll:true})}
  hud();
 }
 function end(){
- const lost=comboValue();mode='over';clearPush();clearManualInput();manual=false;manualTime=0;manualScored=false;
+ const lost=comboValue();mode='over';clearPush();clearManualInput();clearGrindInput();clearGrindContact();manual=false;manualTime=0;manualScored=false;
  burst(player.x,player.y-7,22,'#7d8a67');tone(100,.22,'sawtooth');
  if(score>best){best=Math.floor(score);try{localStorage.setItem('sepi-skate-best',String(best))}catch{}}
  clearCombo();grinding=false;down=false;
@@ -189,8 +216,9 @@ function spawn(){
  let type;if(obstacleCount<opening.length)type=opening[obstacleCount];
  else{const r=Math.random();type=r<.24?'ramp':r<.50?'curb':r<.68?'rail':r<.83?'bench':r<.92?'puddle':'cone';
  if(type==='cone'&&obstacles.at(-1)?.type==='cone')type='ramp'}
- const sizes={ramp:[52,24],curb:[64,12],rail:[48,18],bench:[43,19],puddle:[34,0],cone:[9,12]};
- const [w,h]=sizes[type];obstacles.push({x:W+25,w,h,type,passed:false,splashed:false});obstacleCount++;
+ const sizes={ramp:[52,24],curb:[64,12],rail:[112,18],bench:[43,19],puddle:[34,0],cone:[9,12]};
+ const w=type==='rail'?Math.ceil(Math.max(sizes[type][0],speed*1.1))+Math.floor(Math.random()*25):sizes[type][0],h=sizes[type][1];
+ obstacles.push({x:W+25,w,h,type,passed:false,splashed:false});obstacleCount++;
  nextSpawn=w+Math.max(145+Math.random()*70,speed*1.35+35);
 }
 function launchRamp(){
@@ -199,10 +227,24 @@ function launchRamp(){
 }
 function grindOn(o,dt){
  player.y=G-o.h+2;player.vy=0;grinding=true;player.ground=false;player.support=null;airComboIndex=-1;
- const label=o.type==='bench'?'Bench grind':o.type==='curb'?'Curb grind':'50–50 grind';
- if(!o.grindCounted){addComboTrick(label,o.type==='curb'?70:100);o.grindCounted=true;tone(230,.1,'sawtooth')}
- else if(!combo)addComboTrick(label,0);
- pending+=22*dt;if(Math.random()<.55)burst(player.x-8,player.y,2,'#e4b557');
+ const style=selectedGrindStyle();
+ if(grindObstacle!==o||grindStyle!==style){grindObstacle=o;grindStyle=style;grindStyleTime=0;grindStyleScored=false}
+ grindStyleTime+=dt;
+ const trick=GRIND_STYLES[style],label=style==='50-50'?(o.type==='bench'?'Bench grind':o.type==='curb'?'Curb grind':'50–50 grind'):trick.label;
+ if(!grindStyleScored&&grindStyleTime>=GRIND_SETTLE){
+  // A surface awards each style once; tapping through poses cannot farm a combo.
+  o.grindAwards??=new Set();
+  if(!o.grindAwards.has(style)){
+   const base=o.type==='curb'?trick.points*.7:trick.points;
+   const entry=comboGrindStyles.has(style)?Math.floor(base*.5):base;
+   addComboTrick(label,entry+(o.grindAwards.size>0?35:0));
+   o.grindAwards.add(style);comboGrindStyles.add(style);tone(230,.1,'sawtooth');
+  }else if(!combo){addComboTrick(label,0);comboGrindStyles.add(style)}
+  grindStyleScored=true;
+ }
+ if(grindStyleScored)pending+=trick.rate*dt;
+ const sparkX=player.x+(style==='boardslide'?0:style==='5-0'?-10:-8);
+ if(Math.random()<.3)burst(sparkX,player.y,1,'#e4b557');
 }
 function update(dt){
  time+=dt;toastTime-=dt;if(toastTime<=0)$('callout').textContent='';
@@ -234,7 +276,9 @@ function update(dt){
  if(mode!=='playing')break;
  if(!o.passed&&o.x+o.w<player.x-10){o.passed=true;score+=o.type==='ramp'?10:20}
  }
- obstacles=obstacles.filter(o=>o.x>-90);
+ obstacles=obstacles.filter(o=>o.x+o.w>-20);
+ if(!grinding)clearGrindContact();
+ updateGrindPose(dt);
  if(mode==='playing'&&player.y>=G&&!player.ground){player.support=null;land()}
  if(mode==='playing')updateManual(dt);
  if(mode==='playing')updateCombo(dt);
@@ -440,20 +484,26 @@ function curlyHair(x,y){
 }
 function skater(x,y){
  const ink=night?'#607687':'#364952',skin=night?'#b68a70':'#b1815e',skinShadow=night?'#916a57':'#936749',shirt=night?'#dce5e7':'#f7f7ef',shirtShadow=night?'#9cafba':'#c8d1cf',light=night?'#cad5cf':'#f4ebd5';
- const pushing=pushPose(),pose=trickPose(),air=!player.ground&&!grinding&&mode==='playing',bail=mode==='over',balancing=manual&&player.ground;
+ const pushing=pushPose(),pose=trickPose(),railPose=grindPose(),air=!player.ground&&!grinding&&mode==='playing',bail=mode==='over',balancing=manual&&player.ground;
  const compression=player.ground?Math.sin(Math.PI*landingTime/LANDING_DURATION)*3:0;
- const turn=pushing.turn,load=pushing.load,crouch=(down&&player.ground?4:0)+load*3+compression+(balancing?1:0);
+ const turn=pushing.turn+(grinding?Math.sin(railPose.yaw)*.45:0),load=pushing.load,crouch=(down&&player.ground?4:0)+load*3+compression+(balancing?1:0)+(grinding?2:0);
  const hipX=turn*5,hipY=-14+crouch,shoulderX=hipX+load*4,shoulderY=-26+crouch,halfShoulder=6-turn*2,halfHip=4-turn;
  rect(x-14,G+5,28,2,palette().shadow);ctx.save();ctx.translate(Math.round(x),Math.round(y));
  if(bail){ctx.translate(0,-6);ctx.rotate(-.85)}
  if(player.ground&&player.support?.type==='ramp')ctx.rotate(-Math.atan(player.support.h/player.support.w));
  if(balancing){ctx.translate(-10,5);ctx.rotate(-.12-.06*manualTime/MANUAL_LIMIT+Math.sin(time*5)*.015);ctx.translate(10,-5)}
- skateboard(0,2+pose.gap,pose.roll,air?-.045*(1-pose.u):0,pose.yaw);
+ if(grinding){ctx.translate(0,railPose.lift);ctx.translate(-10,5);ctx.rotate(railPose.tilt);ctx.translate(10,-5)}
+ skateboard(0,2+pose.gap,pose.roll,air?-.045*(1-pose.u):0,grinding?railPose.yaw:pose.yaw);
  if(air){
  const lift=pose.tuck*6,front=8+pose.flick*10,frontY=-3-lift-pose.flick*2,backY=-3-lift;
  const rear=-7-pose.scoop*4;
  pixelLimb([[-4,-15],[-9,-10-lift*.5],[rear,backY-1]],ink,4);pixelLimb([[3,-15],[6,-10-lift*.5],[front-3,frontY-1]],ink,4);
  rect(rear-4,backY,8,3,light);rect(front-5,frontY,9,3,light);rect(rear-4,backY+2,8,1,'#b8b6a8');rect(front-5,frontY+2,9,1,'#b8b6a8');
+ }else if(grinding){
+  const rearX=-8*Math.cos(railPose.yaw),rearY=-1-8*Math.sin(railPose.yaw)*.48;
+  const frontX=8*Math.cos(railPose.yaw),frontY=-1+8*Math.sin(railPose.yaw)*.48;
+  pixelLimb([[hipX-2,hipY],[rearX-3,-7+crouch],[rearX,rearY-2]],ink,4);skateShoe(rearX,rearY,Math.PI/2+railPose.yaw);
+  pixelLimb([[hipX+2,hipY],[frontX+3,-8+crouch],[frontX,frontY-2]],ink,4);skateShoe(frontX,frontY,Math.PI/2+railPose.yaw);
  }else{
  // Back leg steps beside the deck; front foot remains anchored over the bolts.
  const rearX=pushing.x,rearY=pushing.y;
@@ -467,12 +517,12 @@ function skater(x,y){
  // Shoulder width and shirt side panel make the torso rotation visible.
  const left=shoulderX-halfShoulder,right=shoulderX+halfShoulder;
  const leftHip=hipX-halfHip,rightHip=hipX+halfHip;
- if(!air&&turn>.1){pixelLimb([[right-1,shoulderY+3],[right+4,shoulderY+8],[right+7,shoulderY+7]],skinShadow,3)}
+ if(!air&&!grinding&&turn>.1){pixelLimb([[right-1,shoulderY+3],[right+4,shoulderY+8],[right+7,shoulderY+7]],skinShadow,3)}
  pixelPoly([[left,shoulderY],[right,shoulderY],[rightHip,hipY+1],[leftHip,hipY+1]],shirt);
  pixelPoly([[left,shoulderY+3],[left+2+turn,shoulderY+4],[leftHip+2,hipY],[leftHip,hipY]],shirtShadow);
  rect(leftHip,hipY,halfHip*2,2,shirtShadow);
  rect(shoulderX-2,shoulderY,4,2,shirtShadow);
- if(air||balancing){
+ if(air||balancing||grinding){
  pixelLimb([[-6,-24],[-11,-22-pose.tuck*3],[-14,-23-pose.tuck*3]],skin,3);pixelLimb([[6,-24],[10,-22-pose.tuck*4],[15,-25-pose.tuck*3]],skin,3);rect(-8,-25,4,5,shirt);rect(5,-25,4,4,shirt);
  }else{
  const elbowX=left-1+turn*4,elbowY=shoulderY+9;
@@ -507,12 +557,17 @@ function drawObstacle(o,p){
  rect(x+5,y-o.h+6,3,o.h-6,p.metal);rect(x+o.w-8,y-o.h+6,3,o.h-6,p.metal);rect(x+6,y-7,o.w-12,2,p.metal);
  rect(x+2,y-2,9,2,p.metal);rect(x+o.w-11,y-2,9,2,p.metal);
  }else{
- rect(x,y-o.h,o.w,3,night?p.edge:'#576f76');rect(x+1,y-o.h,o.w-2,1,p.concreteTop);rect(x+6,y-o.h+3,3,o.h-3,p.metal);rect(x+o.w-9,y-o.h+3,3,o.h-3,p.metal);rect(x+3,y-2,9,2,p.line);rect(x+o.w-12,y-2,9,2,p.line);
+ rect(x,y-o.h,o.w,3,night?p.edge:'#576f76');rect(x+1,y-o.h,o.w-2,1,p.concreteTop);
+ const spans=Math.ceil(o.w/48);
+ for(let i=0;i<=spans;i++){
+  const post=x+6+i*(o.w-15)/spans;
+  rect(post,y-o.h+3,3,o.h-3,p.metal);rect(post-3,y-2,9,2,p.line);
+ }
  }
 }
 function draw(){const p=palette();scenery(p);for(const o of obstacles)drawObstacle(o,p);
 if(mode==='playing'&&boost>18){for(let i=0;i<3;i++){let sx=player.x-27-((time*speed*.65+i*17)%36);rect(sx,G-8-i*6,5+boost*.07,1,p.edge)}}
-const displayX=mode==='ready'?Math.max(40,W*.19):player.x;skater(displayX,mode==='ready'?G:player.y);for(const p of particles)rect(p.x,p.y,2,2,p.c);if(mode==='playing'&&grinding){rect(player.x-19,player.y+2,5,1,'#e6c96a')}if(mode==='paused'){rect(0,0,W,H,p.pause)}
+const displayX=mode==='ready'?Math.max(40,W*.19):player.x;skater(displayX,mode==='ready'?G:player.y);for(const p of particles)rect(p.x,p.y,2,2,p.c);if(mode==='playing'&&grinding){rect(player.x+(grindStyle==='boardslide'?-3:-13),player.y+2,5,1,'#e6c96a')}if(mode==='paused'){rect(0,0,W,H,p.pause)}
 }
 function frame(ts){const dt=Math.min((ts-last)/1000||0,.033);last=ts;update(dt);draw();raf=requestAnimationFrame(frame)}
 $('play').onclick=()=>mode==='paused'?pause():start();
@@ -529,22 +584,22 @@ window.addEventListener('message',event=>{
 window.addEventListener('keydown',e=>{
  if(e.target instanceof HTMLButtonElement||e.target instanceof HTMLAnchorElement||e.metaKey||e.ctrlKey||e.altKey)return;
  const key=e.key.toLowerCase();
- if(![' ','arrowup','arrowdown','arrowright','d','x','z','c','p','escape'].includes(key))return;
+ if(![' ','arrowup','arrowdown','arrowleft','arrowright','d','x','z','c','p','escape'].includes(key))return;
  if(key==='escape'){if(mode==='playing')pause();return}
  e.preventDefault();if(e.repeat)return;
  if(key===' '||key==='arrowup')jump();
  if(key==='x')flip();if(key==='z')shuvit();if(key==='c')beginManual('key');
- if(key==='arrowdown')down=true;
  if(key==='arrowright'||key==='d')beginPush(key);
+ if(['arrowdown','arrowleft','arrowright'].includes(key)){grindKeys.add(key);syncGrindInput()}
  if(key==='p')pause();
 });
 window.addEventListener('keyup',e=>{
  const key=e.key.toLowerCase();
- if(key==='arrowdown')down=false;
+ grindKeys.delete(key);syncGrindInput();
  if(key==='c')manualKey=false;
  pushKeys.delete(key);
 });
-window.addEventListener('blur',()=>{clearPush();clearManualInput();down=false;if(mode==='playing')pause()});
+window.addEventListener('blur',()=>{clearPush();clearManualInput();clearGrindInput();if(mode==='playing')pause()});
  document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause()});
 function touch(id,fn,release){
  const el=$(id);
@@ -554,7 +609,22 @@ function touch(id,fn,release){
 touch('push',()=>beginPush('touch'),()=>pushTouch=false);
 touch('jump',jump);touch('flip',flip);touch('shuvit',shuvit);
 touch('manual',()=>beginManual('touch'),()=>manualTouch=false);
-touch('grind',()=>down=true,()=>down=false);
+const grindControl=$('grind');
+grindControl.addEventListener('pointerdown',e=>{
+ e.preventDefault();
+ if(mode!=='playing'||grindPointerId!==null)return;
+ grindControl.setPointerCapture(e.pointerId);
+ grindPointerId=e.pointerId;grindPointerStart=e.clientX;grindTouchStyle='50-50';syncGrindInput();
+});
+grindControl.addEventListener('pointermove',e=>{
+ if(e.pointerId!==grindPointerId)return;
+ const delta=e.clientX-grindPointerStart;
+ grindTouchStyle=delta<-GRIND_DRAG_THRESHOLD?'boardslide':delta>GRIND_DRAG_THRESHOLD?'5-0':'50-50';
+});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])grindControl.addEventListener(event,e=>{
+ if(e.pointerId!==grindPointerId)return;
+ grindPointerId=null;grindTouchStyle='50-50';syncGrindInput();
+});
 canvas.addEventListener('pointerdown',()=>jump());
 resize();raf=requestAnimationFrame(frame);
 })();
