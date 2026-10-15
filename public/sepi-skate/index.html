@@ -13,7 +13,7 @@
         <canvas
           id="game"
           tabindex="0"
-          aria-label="Skate game. Hold right arrow or D to push. Space to ollie, X to kickflip, Z to shuv-it. Hold C to manual. Hold down arrow to grind: add left arrow for a boardslide or right arrow for a 5–0. On touch, hold Grind and slide left or right. Release a manual before the balance bar fills. Land and roll away to bank your combo. P to pause."
+          aria-label="Skate the plaza. Hold right arrow or D to push. Space to ollie, X to kickflip, Z to shuv-it, V to 360 flip. Start a 360 flip early in your jump, or use a ramp for more airtime. Hold C to manual across raised pads. Hold down arrow to grind: add left arrow for a boardslide or right arrow for a 5–0. On touch, hold Grind and slide left or right. Release a manual before the balance bar fills. Land and roll away to bank your combo. P to pause."
         ></canvas>
         <div class="hud">
           <div>
@@ -56,6 +56,9 @@
           <span><kbd>Space</kbd> jump</span>
           <span><kbd>X</kbd> flip</span>
           <span><kbd>Z</kbd> shuv-it</span>
+          <span title="Start early in the jump; ramps give extra airtime"
+            ><kbd>V</kbd> 360 flip</span
+          >
           <span title="Hold C; release before the balance bar fills"
             ><kbd>C</kbd> manual</span
           >
@@ -74,6 +77,12 @@
         <button id="flip">&#10023; <span>KICKFLIP</span></button>
         <button id="shuvit" aria-label="Shuv-it in the air">
           &#8634; <span>SHUV-IT</span>
+        </button>
+        <button
+          id="tre-flip"
+          aria-label="360 flip in the air; start early in the jump"
+        >
+          &#8635; <span>360 FLIP</span>
         </button>
         <button
           id="manual"
