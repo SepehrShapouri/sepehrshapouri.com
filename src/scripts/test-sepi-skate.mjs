@@ -93,12 +93,14 @@ function game() {
   // Expose the real game only inside this test VM; the shipped script has no test API.
   const inspect = `
     globalThis.game = {
-      jump, flip, shuvit, beginManual, pause, end, update, trickPose, grindPose, spawn,
+      jump, flip, shuvit, treFlip, beginManual, pause, end, update, trickPose, grindPose, spawn,
       reset(){start();nextSpawn=1e9},
+      runCourse(){start()},
       releaseManual(){manualKey=false;manualTouch=false},
-      scene(items,pose){obstacles=items;Object.assign(player,pose)},
+      scene(items,pose){obstacles=items;Object.assign(player,pose);nextSpawn=1e9},
       setPace(value){speed=value},
-      state(){return {mode,score,pending,combo,value:comboValue(),tricks:[...comboTricks],manual,manualTime,held:manualHeld(),grinding,grindStyle,grindStyleTime,grindHeld:down,selectedGrind:selectedGrindStyle(),ground:player.ground,flipTime,shuvTime,comboTime,G,x:player.x,nextSpawn,obstacles:obstacles.map(({type,x,w,h})=>({type,x,w,h}))}}
+      setMotion(value){distance=Math.max(0,(Math.min(value,145)-83)/.025);boost=Math.max(0,value-cruiseSpeed());speed=value},
+      state(){return {mode,score,pending,combo,value:comboValue(),tricks:[...comboTricks],manual,manualTime,held:manualHeld(),grinding,grindStyle,grindStyleTime,grindHeld:down,selectedGrind:selectedGrindStyle(),ground:player.ground,support:player.support?.type||null,flipTime,shuvTime,treTime,treDone,comboTime,G,x:player.x,y:player.y,vy:player.vy,speed,courseLine,nextSpawn,obstacles:obstacles.map(({type,x,w,h,line})=>({type,x,w,h,line}))}}
     };
   `
   vm.runInContext(source.replace(/\}\)\(\);\s*$/, `${inspect}})();`), context)
@@ -449,7 +451,7 @@ test("new grinds carry into air tricks and bank only after a clean exit", () => 
 })
 
 test("both new stances work on ledges as well as rails", () => {
-  for (const type of ["curb", "bench"]) {
+  for (const type of ["curb", "bench", "manual-pad"]) {
     const g = game()
     approachRail(g, 112, type)
     g.key("ArrowDown", true)
@@ -489,7 +491,7 @@ test("rail length scales with speed and leaves space for the next obstacle", () 
     g.spawn()
     g.spawn()
     g.spawn()
-    const rail = g.state().obstacles.at(-1)
+    const rail = g.state().obstacles.find((o) => o.type === "rail")
     assert.equal(rail.type, "rail")
     assert.ok(rail.w >= Math.max(112, speed * 1.1))
     assert.ok(g.state().nextSpawn - rail.w >= speed * 1.35 + 35 - 1e-9)
@@ -538,4 +540,254 @@ test("pause, blur and restart clear stance inputs without banking paused points"
   assert.equal(g.state().grindStyleTime, 0)
   assert.equal(g.grindPose().yaw, 0)
   assert.equal(g.grindPose().tilt, 0)
+})
+
+test("360 flips combine roll and yaw, then bank as one airborne trick", () => {
+  const g = game()
+  g.treFlip()
+  assert.equal(g.state().pending, 0)
+  g.jump()
+  g.treFlip()
+  g.flip()
+  g.shuvit()
+  g.treFlip()
+  g.tick(0.3)
+  assert.equal(g.state().pending, 190)
+  assert.equal(g.state().combo, 1)
+  assert.deepEqual(g.state().tricks, ["360 flip"])
+  assert.ok(g.trickPose().yaw > 1 && g.trickPose().yaw < Math.PI * 2)
+  assert.ok(g.trickPose().roll < -1)
+  g.tick(1.45)
+  assert.equal(g.state().mode, "playing")
+  assert.equal(g.state().pending, 0)
+  assert.ok(g.state().score >= 190 && g.state().score < 195)
+})
+
+test("a late 360 flip bails and cannot replace an already selected trick", () => {
+  const g = game()
+  g.jump()
+  g.flip()
+  g.treFlip()
+  assert.equal(g.state().treTime, 0)
+  assert.equal(g.state().pending, 85)
+  g.reset()
+  g.jump()
+  g.tick(0.35)
+  g.treFlip()
+  g.tick(0.6)
+  assert.equal(g.state().mode, "over")
+  assert.equal(g.state().pending, 0)
+  assert.match(g.text("overlay-copy"), /190 lost/)
+  g.reset()
+  assert.equal(g.state().treTime, 0)
+  assert.equal(g.state().treDone, false)
+})
+
+test("keyboard and touch both trigger a 360 flip and pause freezes its animation", () => {
+  const g = game()
+  g.jump()
+  g.key("v", true, { ctrlKey: true })
+  assert.equal(g.state().treTime, 0)
+  g.key("v", true)
+  g.tick(0.2)
+  g.pause()
+  const remaining = g.state().treTime
+  g.tick(3)
+  assert.equal(g.state().treTime, remaining)
+  g.reset()
+  g.jump()
+  g.touch("tre-flip", "pointerdown")
+  assert.deepEqual(g.state().tricks, ["360 flip"])
+})
+
+test("raised pads support manuals, clean exits and grinds", () => {
+  const g = game()
+  const { x, G } = g.state()
+  g.jump()
+  g.beginManual("key")
+  g.scene([{ type: "manual-pad", x: x + 30, w: 160, h: 10 }], {})
+  g.tick(1.1)
+  assert.equal(g.state().support, "manual-pad")
+  assert.equal(g.state().y, G - 10)
+  assert.equal(g.state().manual, true)
+  assert.deepEqual(g.state().tricks, ["Ollie", "Manual"])
+  g.releaseManual()
+  g.tick(0.02)
+  assert.equal(g.state().pending, 0)
+  g.tick(1.8)
+  assert.equal(g.state().ground, true)
+  assert.equal(g.state().y, G)
+  assert.equal(g.state().mode, "playing")
+})
+
+test("riding into a raised pad requires a jump", () => {
+  const g = game()
+  const { x } = g.state()
+  g.scene([{ type: "manual-pad", x: x + 6, w: 140, h: 10 }], {})
+  g.tick(0.05)
+  assert.equal(g.state().mode, "over")
+})
+
+test("the opening ramp feeds onto a manual pad at cruise and pushing speeds", () => {
+  for (const pushing of [false, true]) {
+    const g = game()
+    g.runCourse()
+    if (pushing) g.key("ArrowRight", true)
+    let reachedPad = false,
+      exited = false
+    for (let time = 0; time < 12; time += 1 / 60) {
+      g.tick(1 / 60)
+      const state = g.state()
+      assert.equal(
+        state.mode,
+        "playing",
+        `Opening line failed with pushing=${pushing}`
+      )
+      if (state.support === "manual-pad") reachedPad = true
+      if (reachedPad && state.ground && !state.support) {
+        exited = true
+        break
+      }
+    }
+    assert.equal(reachedPad, true)
+    assert.equal(exited, true)
+  }
+})
+
+test("plaza lines have clear separation and predictable obstacle sequences", () => {
+  const g = game()
+  g.spawn()
+  assert.deepEqual(
+    g.state().obstacles.map((o) => o.type),
+    ["ramp", "manual-pad"]
+  )
+  g.spawn()
+  const line = g.state().obstacles.filter((o) => o.line === 1)
+  assert.deepEqual(
+    line.map((o) => o.type),
+    ["manual-pad", "rail", "ramp"]
+  )
+  for (let i = 1; i < line.length; i++)
+    assert.ok(line[i].x - (line[i - 1].x + line[i - 1].w) >= 32)
+  const span = line.at(-1).x + line.at(-1).w - line[0].x
+  assert.ok(g.state().nextSpawn - span >= 180)
+  g.reset()
+  g.spawn()
+  assert.equal(g.state().courseLine, 1)
+  assert.deepEqual(
+    g.state().obstacles.map((o) => o.type),
+    ["ramp", "manual-pad"]
+  )
+})
+
+test("the designed manual-pad to rail to ramp line supports a complete tre-flip combo", () => {
+  for (const speed of [83, 213]) {
+    const g = game()
+    g.setPace(speed)
+    g.spawn()
+    g.spawn()
+    const initial = g.state()
+    const line = initial.obstacles.filter((o) => o.line === 1)
+    const offset = line[0].x - initial.x + 10
+    line.forEach((o) => {
+      o.x -= offset
+    })
+    g.scene(line, {
+      ground: true,
+      support: line[0],
+      y: initial.G - line[0].h,
+      vy: 0,
+    })
+    g.setMotion(speed)
+    g.beginManual("key")
+    let jumped = false,
+      reachedRail = false,
+      tre = false,
+      banked = false
+    for (let time = 0; time < 12; time += 1 / 120) {
+      const state = g.state()
+      assert.equal(
+        state.mode,
+        "playing",
+        `Line failed at ${speed}, ${state.tricks.join(" → ")}`
+      )
+      const pad = state.obstacles.find((o) => o.type === "manual-pad")
+      if (!jumped && pad && pad.x + pad.w - state.x < state.speed * 0.06) {
+        g.key("ArrowDown", true)
+        g.key("ArrowLeft", true)
+        g.jump()
+        jumped = true
+      }
+      if (state.grinding) reachedRail = true
+      if (reachedRail && !state.grinding) {
+        g.key("ArrowDown", false)
+        g.key("ArrowLeft", false)
+      }
+      if (!tre && state.tricks.at(-1) === "Ramp air" && state.vy < 0) {
+        g.treFlip()
+        g.releaseManual()
+        tre = true
+      }
+      if (tre && state.pending === 0) {
+        banked = true
+        break
+      }
+      g.tick(1 / 120)
+    }
+    assert.equal(jumped, true)
+    assert.equal(reachedRail, true)
+    assert.equal(tre, true)
+    assert.equal(banked, true)
+    assert.ok(g.state().score > 1000)
+  }
+})
+
+test("every designed transfer is reachable at cruise and boosted speed", () => {
+  for (const speed of [83, 213]) {
+    const catalog = game()
+    catalog.setPace(speed)
+    for (let i = 0; i < 4; i++) catalog.spawn()
+    const all = catalog.state().obstacles
+    for (let lineIndex = 0; lineIndex < 4; lineIndex++) {
+      const line = all.filter((o) => o.line === lineIndex)
+      for (let i = 1; i < line.length; i++) {
+        const g = game()
+        const { x, G } = g.state()
+        const left = { ...line[i - 1] },
+          right = { ...line[i] }
+        const shift = left.x + left.w - x
+        left.x -= shift
+        right.x -= shift
+        const rail = left.type === "rail"
+        g.scene([left, right], {
+          ground: !rail,
+          support: rail ? null : left,
+          y: G - left.h + (rail ? 2 : 0),
+          vy: 0,
+        })
+        g.setMotion(speed)
+        if (right.type === "rail" || rail) g.key("ArrowDown", true)
+        // Ride off raised surfaces into kickers; pop between raised landing surfaces.
+        if (!rail && left.type !== "ramp" && right.type !== "ramp") g.jump()
+        let reached = false
+        for (let time = 0; time < 2; time += 1 / 120) {
+          g.tick(1 / 120)
+          const state = g.state()
+          assert.equal(
+            state.mode,
+            "playing",
+            `${left.type} → ${right.type} at ${speed}`
+          )
+          if (
+            state.support === right.type ||
+            (right.type === "rail" && state.grinding)
+          ) {
+            reached = true
+            break
+          }
+        }
+        assert.equal(reached, true, `${left.type} → ${right.type} at ${speed}`)
+      }
+    }
+  }
 })
