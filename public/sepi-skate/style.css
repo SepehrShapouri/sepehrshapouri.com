@@ -371,7 +371,7 @@ body.night canvas:focus-visible {
   .touch-controls {
     flex: none;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
     padding: 8px;
     background: var(--chrome);
@@ -394,6 +394,9 @@ body.night canvas:focus-visible {
     font-size: 18px;
     touch-action: none;
     user-select: none;
+  }
+  .touch-controls #push {
+    grid-row: span 2;
   }
   .touch-controls button:active,
   .touch-controls button[aria-pressed="true"] {
